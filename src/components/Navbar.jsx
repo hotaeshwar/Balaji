@@ -8,10 +8,18 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [coords, setCoords] = useState({ left: 0, width: 0, opacity: 0 });
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      // Check if user scrolled to the bottom of the page
+      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 15;
+      if (isAtBottom) {
+        setActiveSection('contact');
+        return;
+      }
 
       // Section spy
       const sections = ['home', 'services', 'why-choose-us', 'products', 'ev-showcase', 'contact'];
@@ -20,7 +28,7 @@ export default function Navbar() {
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
-          const top = el.offsetTop;
+          const top = el.getBoundingClientRect().top + window.scrollY;
           const height = el.offsetHeight;
           if (scrollPosition >= top && scrollPosition < top + height) {
             setActiveSection(section);
@@ -31,8 +39,38 @@ export default function Navbar() {
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Trigger initial calculation
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const updateCoords = () => {
+      const activeEl = document.querySelector(`[data-nav-id="${activeSection}"]`);
+      if (activeEl) {
+        const parent = activeEl.parentElement;
+        const parentRect = parent.getBoundingClientRect();
+        const rect = activeEl.getBoundingClientRect();
+        setCoords({
+          left: rect.left - parentRect.left,
+          width: rect.width,
+          opacity: 1
+        });
+      } else {
+        setCoords((prev) => ({ ...prev, opacity: 0 }));
+      }
+    };
+
+    updateCoords();
+    
+    // Delayed fallback to handle post-render layout shifts
+    const timer = setTimeout(updateCoords, 100);
+
+    window.addEventListener('resize', updateCoords);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', updateCoords);
+    };
+  }, [activeSection]);
 
   const navLinks = [
     { id: 'home', label: 'Home' },
@@ -46,9 +84,18 @@ export default function Navbar() {
   const handleLinkClick = (e, id) => {
     e.preventDefault();
     setIsOpen(false);
+    
+    if (id === 'home') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      return;
+    }
+
     const element = document.getElementById(id);
     if (element) {
-      const offset = 80; // Offset for sticky navbar
+      const offset = 76; // Offset for sticky navbar in scrolled state
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -64,14 +111,18 @@ export default function Navbar() {
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
       scrolled 
-        ? 'bg-white/95 backdrop-blur-md shadow-md py-3 border-b border-gold-100' 
-        : 'bg-white py-5'
+        ? 'bg-white/95 backdrop-blur-md shadow-md py-1.5 border-b border-gold-100' 
+        : 'bg-white py-3'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo Section */}
-          <a href="#home" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group py-1 shrink-0">
-            <div className="relative w-[260px] xs:w-[300px] sm:w-[345px] md:w-[290px] lg:w-[370px] xl:w-[430px] h-14 xs:h-16 sm:h-18 md:h-16 lg:h-20 xl:h-24 transition-transform duration-300 group-hover:scale-[1.02]">
+          <a href="#home" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group shrink-0">
+            <div className={`relative transition-all duration-300 group-hover:scale-[1.02] ${
+              scrolled 
+                ? 'w-[190px] xs:w-[220px] sm:w-[250px] md:w-[200px] lg:w-[260px] xl:w-[290px] h-10 xs:h-11 sm:h-12 md:h-11 lg:h-14 xl:h-16'
+                : 'w-[260px] xs:w-[300px] sm:w-[345px] md:w-[290px] lg:w-[370px] xl:w-[430px] h-14 xs:h-16 sm:h-18 md:h-16 lg:h-20 xl:h-24'
+            }`}>
               <Image 
                 src="/logo.jpeg" 
                 alt="Balaji Autoss Logo Banner" 
@@ -83,17 +134,30 @@ export default function Navbar() {
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center gap-0.5 lg:gap-1 bg-slate-50/80 border border-slate-100/50 p-1.5 rounded-full shrink-0">
+          {/* Desktop Navigation Links with Sliding Tab Highlight */}
+          <div className="relative hidden md:flex items-center gap-0.5 lg:gap-1 bg-slate-50/80 border border-slate-100/50 p-1.5 rounded-full shrink-0">
+            {/* Sliding Capsule Background */}
+            <div 
+              className="absolute bg-white shadow-sm border border-gold-200/50 rounded-full transition-all duration-300 ease-out z-0"
+              style={{
+                left: `${coords.left}px`,
+                width: `${coords.width}px`,
+                height: 'calc(100% - 12px)',
+                top: '6px',
+                opacity: coords.opacity
+              }}
+            />
+
             {navLinks.map((link) => (
               <a
                 key={link.id}
                 href={`#${link.id}`}
+                data-nav-id={link.id}
                 onClick={(e) => handleLinkClick(e, link.id)}
-                className={`relative px-3 lg:px-4 py-1.5 lg:py-2 font-display text-xs lg:text-sm font-medium rounded-full transition-all duration-300 ${
+                className={`relative px-3 lg:px-4 py-1.5 lg:py-2 font-display text-xs lg:text-sm font-medium rounded-full transition-colors duration-300 z-10 ${
                   activeSection === link.id
-                    ? 'text-gold-700 bg-white shadow-sm border border-gold-200/50 font-semibold'
-                    : 'text-slate-600 hover:text-gold-600 hover:bg-gold-50/40'
+                    ? 'text-gold-700 font-semibold'
+                    : 'text-slate-600 hover:text-gold-600'
                 }`}
               >
                 {link.label}

@@ -114,6 +114,52 @@ export default function FeaturedProducts({ onInquire }) {
         brand: 'All Vehicles',
         image: '/emergency_jumpstart.png'
       }
+    ],
+    carwashing: [
+      {
+        id: 'pkg-wash-eco',
+        name: 'Eco Foam Wash & Vacuum',
+        type: 'Basic Exterior & Interior',
+        price: 'Inspect & Estimate',
+        rating: '4.8',
+        features: ['High-pressure water rinse', 'Active foam shampoo scrub', 'Complete exterior hand dry', 'Basic interior vacuuming'],
+        warranty: 'Spotless Shine Guarantee',
+        brand: '2 & 4-Wheeler',
+        image: '/carwash/bj1.png'
+      },
+      {
+        id: 'pkg-wash-premium',
+        name: 'Premium Foam & Wax',
+        type: 'Advanced Paint Protection',
+        price: 'Inspect & Estimate',
+        rating: '4.9',
+        features: ['Premium snow foam wash', 'Underbody high-pressure wash', 'Tyre cleaning & dressing', 'Microfiber spray wax polish'],
+        warranty: 'Long-Lasting Gloss Shield',
+        brand: '4-Wheeler',
+        image: '/carwash/bj2.png'
+      },
+      {
+        id: 'pkg-wash-interior',
+        name: 'Complete Interior Spa',
+        type: 'Deep Cabin Grooming',
+        price: 'Inspect & Estimate',
+        rating: '4.9',
+        features: ['Deep interior vacuum & dust', 'Dashboard & console dressing', 'Upholstery & mat shampooing', 'AC vent sanitisation'],
+        warranty: '100% Odour-Free Guarantee',
+        brand: '4-Wheeler',
+        image: '/carwash/bj3.png'
+      },
+      {
+        id: 'pkg-wash-ultimate',
+        name: 'Ultimate Gold Detailing',
+        type: 'Showroom Polish Treatment',
+        price: 'Inspect & Estimate',
+        rating: '5.0',
+        features: ['Premium foam & underbody wash', 'Deep interior cabin cleaning', 'Engine bay detailing & gloss', 'Hand-applied premium wax coat'],
+        warranty: 'Premium Protection Plan',
+        brand: 'All Vehicles',
+        image: '/carwash/bj4.png'
+      }
     ]
   };
 
@@ -155,78 +201,88 @@ export default function FeaturedProducts({ onInquire }) {
             >
               Battery Diagnostics
             </button>
+            <button
+              onClick={() => setActiveTab('carwashing')}
+              className={`px-6 py-2.5 rounded-full text-sm font-semibold font-display transition-all duration-300 ${
+                activeTab === 'carwashing'
+                  ? 'bg-gold-500 text-white shadow-md shadow-gold-200'
+                  : 'text-slate-600 hover:text-gold-600 hover:bg-gold-50/50'
+              }`}
+            >
+              Car Washing
+            </button>
           </div>
         </div>
 
         {/* Packages Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {packages[activeTab].map((pkg, index) => (
             <div
               key={pkg.id}
-              className="glow-card bg-white rounded-3xl p-6 border border-slate-100 shadow-sm flex flex-col justify-between reveal delay-200"
+              className="glow-card bg-white rounded-3xl p-6 border border-slate-100 shadow-sm flex flex-col md:flex-row gap-6 reveal delay-200"
               style={{ transitionDelay: `${(index + 1) * 100}ms` }}
             >
-              {/* Package Info */}
-              <div className="flex flex-col gap-4 text-left">
-                {/* Level and rating */}
-                <div className="flex justify-between items-center text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  <span className="text-gold-600 font-bold font-display">{pkg.brand}</span>
-                  <span className="flex items-center gap-1">★ {pkg.rating}</span>
-                </div>
-
-                {/* Name */}
-                <h3 className="font-display font-bold text-lg text-slate-900 leading-tight group-hover:text-gold-600 transition-colors">
-                  {pkg.name}
-                </h3>
-                
-                {/* Type label */}
-                <span className="text-[11px] font-sans font-medium text-slate-400 -mt-2">
-                  {pkg.type}
-                </span>
-
-                {/* Service Illustration Box with AI Generated Image */}
-                <div className="h-32 bg-slate-100 rounded-2xl relative overflow-hidden group border border-slate-200/40 shadow-inner">
-                  <Image 
-                    src={pkg.image} 
-                    alt={pkg.name}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-w-768px) 100vw, 25vw"
-                  />
-                  {/* Subtle dark gradient overlay to give gold styling depth */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent" />
-                </div>
-
-                {/* Bullets */}
-                <ul className="flex flex-col gap-1.5 mt-2">
-                  {pkg.features.map((feat, fIdx) => (
-                    <li key={fIdx} className="flex items-center gap-2 text-xs text-slate-600 font-sans">
-                      <ShieldCheck className="w-3.5 h-3.5 text-gold-500 shrink-0" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
+              {/* Service Illustration Box with AI Generated Image */}
+              <div className="w-full md:w-2/5 h-48 md:h-auto min-h-[180px] bg-slate-100 rounded-2xl relative overflow-hidden group border border-slate-200/40 shadow-inner shrink-0">
+                <Image 
+                  src={pkg.image} 
+                  alt={pkg.name}
+                  fill
+                  className="object-contain transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-w-768px) 100vw, 25vw"
+                />
+                {/* Subtle dark gradient overlay to give gold styling depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent" />
               </div>
 
-              {/* Price & Action */}
-              <div className="mt-6 pt-5 border-t border-slate-50">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="flex flex-col text-left">
-                    <span className="text-[10px] text-slate-400 font-medium">Service Fee</span>
-                    <span className="font-display font-semibold text-xs text-gold-600 mt-1">{pkg.price}</span>
+              {/* Package Details */}
+              <div className="flex flex-col justify-between flex-1 gap-4">
+                <div className="flex flex-col gap-3 text-left">
+                  {/* Level and rating */}
+                  <div className="flex justify-between items-center text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    <span className="text-gold-600 font-bold font-display">{pkg.brand}</span>
+                    <span className="flex items-center gap-1">★ {pkg.rating}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-[11px] font-semibold text-gold-600 bg-gold-50 px-2.5 py-1 rounded-full border border-gold-200/40">
-                    <span className="text-[10px] uppercase font-bold">Guaranteed</span>
-                  </div>
+
+                  {/* Name */}
+                  <h3 className="font-display font-bold text-lg text-slate-900 leading-tight group-hover:text-gold-600 transition-colors">
+                    {pkg.name}
+                  </h3>
+                  
+                  {/* Type label */}
+                  <span className="text-[11px] font-sans font-medium text-slate-400 -mt-2">
+                    {pkg.type}
+                  </span>
+
+                  {/* Bullets */}
+                  <ul className="flex flex-col gap-1.5 mt-1">
+                    {pkg.features.map((feat, fIdx) => (
+                      <li key={fIdx} className="flex items-center gap-2 text-xs text-slate-600 font-sans">
+                        <ShieldCheck className="w-3.5 h-3.5 text-gold-500 shrink-0" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <button
-                  onClick={() => onInquire(pkg)}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-slate-50 hover:bg-gold-500 text-slate-700 hover:text-white border border-slate-200/60 hover:border-gold-500 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all duration-300 group shadow-sm active:scale-95"
-                >
-                  <span>Book Service Pack</span>
-                  <MessageSquareCode className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 text-gold-500 group-hover:text-white" />
-                </button>
+                {/* Price & Action */}
+                <div className="pt-4 border-t border-slate-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                  <div className="flex flex-col text-left">
+                    <span className="text-[10px] text-slate-400 font-medium">Service Fee</span>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="font-display font-semibold text-xs text-gold-600">{pkg.price}</span>
+                      <span className="text-[9px] uppercase font-bold text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200/40">Guaranteed</span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => onInquire(pkg)}
+                    className="inline-flex items-center justify-center gap-2 bg-slate-50 hover:bg-gold-500 text-slate-700 hover:text-white border border-slate-200/60 hover:border-gold-500 font-semibold py-2 px-4 rounded-xl text-xs transition-all duration-300 group shadow-sm active:scale-95 whitespace-nowrap"
+                  >
+                    <span>Book Service Pack</span>
+                    <MessageSquareCode className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 text-gold-500 group-hover:text-white" />
+                  </button>
+                </div>
               </div>
             </div>
           ))}
