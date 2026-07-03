@@ -228,7 +228,7 @@ export default function FeaturedProducts({ onInquire }) {
                   src={pkg.image} 
                   alt={pkg.name}
                   fill
-                  className="object-contain transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-w-768px) 100vw, 25vw"
                 />
                 {/* Subtle dark gradient overlay to give gold styling depth */}
