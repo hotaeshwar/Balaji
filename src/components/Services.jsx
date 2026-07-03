@@ -1,6 +1,6 @@
 'use client';
 
-import { Disc, BatteryCharging, Zap, ArrowUpRight } from 'lucide-react';
+import { Disc, BatteryCharging, Zap, ArrowUpRight, Sparkles } from 'lucide-react';
 
 export default function Services() {
   const services = [
@@ -30,6 +30,15 @@ export default function Services() {
       highlights: ['Authorized Scooter Sales', 'OBD Software Scan Diagnostics', 'Lithium Battery Cell Balancing', 'Authorized Spare Parts & Motor Tuning'],
       cta: 'View EV Packages',
       linkId: 'ev-showcase'
+    },
+    {
+      id: 'carwash',
+      icon: Sparkles,
+      title: '2 & 4-Wheeler Car Wash Clinic',
+      description: 'Keep your ride looking showroom-fresh. We provide high-pressure active foam washing, detailed interior vacuum cabin cleaning, dashboard polishing, and complete sanitisation.',
+      highlights: ['Premium Active Foam Wash', 'Detailed Cabin Vacuuming', 'Dashboard & Trim Polish', 'Upholstery Sanitisation'],
+      cta: 'View Wash Packages',
+      linkId: 'products'
     }
   ];
 
@@ -69,7 +78,7 @@ export default function Services() {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
