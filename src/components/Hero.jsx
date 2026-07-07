@@ -6,6 +6,9 @@ import { ArrowRight, Shield, Award, Sparkles } from 'lucide-react';
 export default function Hero() {
   const handleScrollTo = (e, id) => {
     e.preventDefault();
+    const path = id === 'home' ? '/home' : `/${id}`;
+    window.history.pushState(null, '', path);
+
     const element = document.getElementById(id);
     if (element) {
       const offset = 80;
@@ -59,7 +62,7 @@ export default function Hero() {
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-4 mt-2">
               <a
-                href="#services"
+                href="/services"
                 onClick={(e) => handleScrollTo(e, 'services')}
                 className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 active:scale-95 text-white font-medium px-7 py-3.5 rounded-full shadow-md transition-all duration-300 group text-sm tracking-wide"
               >
@@ -67,7 +70,7 @@ export default function Hero() {
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <a
-                href="#contact"
+                href="/contact"
                 onClick={(e) => handleScrollTo(e, 'contact')}
                 className="inline-flex items-center justify-center bg-white hover:bg-gold-50/50 active:scale-95 text-gold-700 font-semibold border border-gold-300 px-7 py-3.5 rounded-full shadow-sm hover:shadow-gold-glow transition-all duration-300 text-sm tracking-wide"
               >

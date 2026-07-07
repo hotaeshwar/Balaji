@@ -3,12 +3,16 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Menu, X, PhoneCall } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [coords, setCoords] = useState({ left: 0, width: 0, opacity: 0 });
+
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,7 +21,10 @@ export default function Navbar() {
       // Check if user scrolled to the bottom of the page
       const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 15;
       if (isAtBottom) {
-        setActiveSection('contact');
+        if (activeSection !== 'contact') {
+          setActiveSection('contact');
+          window.history.pushState(null, '', '/contact');
+        }
         return;
       }
 
@@ -31,7 +38,11 @@ export default function Navbar() {
           const top = el.getBoundingClientRect().top + window.scrollY;
           const height = el.offsetHeight;
           if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
+            if (activeSection !== section) {
+              setActiveSection(section);
+              const path = section === 'home' ? '/home' : `/${section}`;
+              window.history.pushState(null, '', path);
+            }
             break;
           }
         }
@@ -41,7 +52,7 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Trigger initial calculation
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [activeSection]);
 
   useEffect(() => {
     const updateCoords = () => {
@@ -72,6 +83,30 @@ export default function Navbar() {
     };
   }, [activeSection]);
 
+  useEffect(() => {
+    const path = pathname.replace(/^\//, ''); // e.g. "services"
+    const section = path === '' || path === 'home' ? 'home' : path;
+    setActiveSection(section);
+
+    // Smooth scroll to the target section on initial load or route change
+    const element = document.getElementById(section);
+    if (element) {
+      const timer = setTimeout(() => {
+        const offset = 76;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [pathname]);
+
   const navLinks = [
     { id: 'home', label: 'Home' },
     { id: 'services', label: 'Services' },
@@ -85,27 +120,8 @@ export default function Navbar() {
     e.preventDefault();
     setIsOpen(false);
     
-    if (id === 'home') {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-      return;
-    }
-
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 76; // Offset for sticky navbar in scrolled state
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+    const targetPath = id === 'home' ? '/home' : `/${id}`;
+    router.push(targetPath, { scroll: false });
   };
 
   return (
@@ -117,7 +133,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo Section */}
-          <a href="#home" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group shrink-0">
+          <a href="/home" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group shrink-0">
             <div className={`relative transition-all duration-300 group-hover:scale-[1.02] ${
               scrolled 
                 ? 'w-[190px] xs:w-[220px] sm:w-[250px] md:w-[200px] lg:w-[260px] xl:w-[290px] h-10 xs:h-11 sm:h-12 md:h-11 lg:h-14 xl:h-16'
@@ -151,7 +167,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <a
                 key={link.id}
-                href={`#${link.id}`}
+                href={link.id === 'home' ? '/home' : `/${link.id}`}
                 data-nav-id={link.id}
                 onClick={(e) => handleLinkClick(e, link.id)}
                 className={`relative px-3 lg:px-4 py-1.5 lg:py-2 font-display text-xs lg:text-sm font-medium rounded-full transition-colors duration-300 z-10 ${
@@ -175,7 +191,7 @@ export default function Navbar() {
               <span className="hidden xl:inline">Call Rohit:</span> +91 9646952897
             </a>
             <a
-              href="#contact"
+              href="/contact"
               onClick={(e) => handleLinkClick(e, 'contact')}
               className="bg-gold-500 hover:bg-gold-600 active:scale-95 text-white font-semibold px-4 lg:px-5 py-2 lg:py-2.5 rounded-full shadow-sm hover:shadow-gold-glow transition-all duration-300 text-xs lg:text-sm tracking-wide whitespace-nowrap shrink-0 animate-fade-in"
             >
@@ -210,7 +226,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <a
                 key={link.id}
-                href={`#${link.id}`}
+                href={link.id === 'home' ? '/home' : `/${link.id}`}
                 onClick={(e) => handleLinkClick(e, link.id)}
                 className={`px-4 py-3 rounded-xl text-base font-medium font-display transition-colors ${
                   activeSection === link.id
@@ -233,7 +249,7 @@ export default function Navbar() {
                 </div>
               </a>
               <a
-                href="#contact"
+                href="/contact"
                 onClick={(e) => handleLinkClick(e, 'contact')}
                 className="w-full bg-gold-500 hover:bg-gold-600 text-white font-semibold py-3 px-5 rounded-xl shadow-md text-center transition-all duration-300 block"
               >

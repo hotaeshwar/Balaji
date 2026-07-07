@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useScrollReveal } from '@/hooks/useIntersectionObserver';
+import { useRouter, usePathname } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
@@ -14,6 +15,15 @@ import Footer from '@/components/Footer';
 import { X, Calendar, Sparkles, MessageSquareDot, CheckCircle2 } from 'lucide-react';
 
 export default function Home() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname === '/') {
+      router.replace('/home');
+    }
+  }, [pathname, router]);
+
   // Activate scroll-reveal animations
   useScrollReveal();
 

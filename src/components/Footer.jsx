@@ -6,6 +6,17 @@ import { Mail, Phone, MapPin, Clock, Heart } from 'lucide-react';
 export default function Footer() {
   const handleLinkClick = (e, id) => {
     e.preventDefault();
+    const path = id === 'home' ? '/home' : `/${id}`;
+    window.history.pushState(null, '', path);
+    
+    if (id === 'home') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      return;
+    }
+
     const element = document.getElementById(id);
     if (element) {
       const offset = 80;
@@ -28,7 +39,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Info */}
           <div className="flex flex-col gap-5">
-            <a href="#home" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group py-1">
+            <a href="/home" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group py-1">
               <div className="relative w-[360px] sm:w-[430px] h-24 sm:h-28 transition-transform duration-300">
                 <Image 
                   src="/logo.jpeg" 
@@ -74,27 +85,27 @@ export default function Footer() {
             </h3>
             <ul className="flex flex-col gap-3.5 text-sm text-slate-600">
               <li>
-                <a href="#services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
                   Premium Tyre Fitting & Alignment
                 </a>
               </li>
               <li>
-                <a href="#services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
                   Battery Installation & Health Check
                 </a>
               </li>
               <li>
-                <a href="#ev-showcase" onClick={(e) => handleLinkClick(e, 'ev-showcase')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/ev-showcase" onClick={(e) => handleLinkClick(e, 'ev-showcase')} className="hover:text-gold-600 transition-colors duration-200">
                   EV Scooter Diagnostics & Repair
                 </a>
               </li>
               <li>
-                <a href="#services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
                   Scheduled Vehicle Maintenance
                 </a>
               </li>
               <li>
-                <a href="#services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
                   Emergency Roadside Assistance
                 </a>
               </li>
@@ -108,32 +119,32 @@ export default function Footer() {
             </h3>
             <ul className="flex flex-col gap-3.5 text-sm text-slate-600">
               <li>
-                <a href="#home" onClick={(e) => handleLinkClick(e, 'home')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/home" onClick={(e) => handleLinkClick(e, 'home')} className="hover:text-gold-600 transition-colors duration-200">
                   Home / Welcome
                 </a>
               </li>
               <li>
-                <a href="#services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
                   Services Offered
                 </a>
               </li>
               <li>
-                <a href="#why-choose-us" onClick={(e) => handleLinkClick(e, 'why-choose-us')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/why-choose-us" onClick={(e) => handleLinkClick(e, 'why-choose-us')} className="hover:text-gold-600 transition-colors duration-200">
                   Why Choose Us
                 </a>
               </li>
               <li>
-                <a href="#products" onClick={(e) => handleLinkClick(e, 'products')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/products" onClick={(e) => handleLinkClick(e, 'products')} className="hover:text-gold-600 transition-colors duration-200">
                   Featured Packages
                 </a>
               </li>
               <li>
-                <a href="#ev-showcase" onClick={(e) => handleLinkClick(e, 'ev-showcase')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/ev-showcase" onClick={(e) => handleLinkClick(e, 'ev-showcase')} className="hover:text-gold-600 transition-colors duration-200">
                   EV Scooter Care
                 </a>
               </li>
               <li>
-                <a href="#contact" onClick={(e) => handleLinkClick(e, 'contact')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/contact" onClick={(e) => handleLinkClick(e, 'contact')} className="hover:text-gold-600 transition-colors duration-200">
                   Contact Us
                 </a>
               </li>
