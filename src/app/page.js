@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useScrollReveal } from '@/hooks/useIntersectionObserver';
 import { useRouter, usePathname } from 'next/navigation';
 import Navbar from '@/components/Navbar';
+import StorefrontHero from '@/components/StorefrontHero';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
 import WhyChooseUs from '@/components/WhyChooseUs';
@@ -127,6 +128,9 @@ export default function Home() {
     <main className="min-h-screen bg-white">
       {/* Navigation */}
       <Navbar />
+
+      {/* Storefront Hero Section */}
+      <StorefrontHero />
 
       {/* Hero Section */}
       <Hero />

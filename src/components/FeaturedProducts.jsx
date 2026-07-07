@@ -37,11 +37,11 @@ export default function FeaturedProducts({ onInquire }) {
     tyres: [
       {
         id: 'pkg-tyre-alignment',
-        name: '4-Wheeler 3D Alignment & Scan',
+        name: '4-Wheeler Alignment & Scan',
         type: 'Car/SUV Tyre Alignment',
         price: 'Inspect & Estimate',
         rating: '4.9',
-        features: ['Computerised 3D Wheel Alignment', 'Tyre tread & wear scan', 'Suspension joint inspection', 'Steering position calibration'],
+        features: ['Computerised Wheel Alignment', 'Tyre tread & wear scan', 'Suspension joint inspection', 'Steering position calibration'],
         warranty: '7-Day Post-Service Re-check',
         brand: '4-Wheeler',
         image: '/tyre_alignment.png'
@@ -63,7 +63,7 @@ export default function FeaturedProducts({ onInquire }) {
         type: 'Complete Under-chassis Servicing',
         price: 'Inspect & Estimate',
         rating: '4.9',
-        features: ['3D Alignment + Spin Balancing', '4-Wheel/2-Wheel rim checks', 'Nitrogen purging & refill', 'Tyre pressure sensor audit'],
+        features: ['Alignment + Spin Balancing', '4-Wheel/2-Wheel rim checks', 'Nitrogen purging & refill', 'Tyre pressure sensor audit'],
         warranty: '15-Day Post-Service Re-check',
         brand: 'All Vehicles',
         image: '/hero_vehicle_care.png'
@@ -115,21 +115,21 @@ export default function FeaturedProducts({ onInquire }) {
         image: '/emergency_jumpstart.png'
       }
     ],
-    carwashing: [
+    fitness: [
       {
-        id: 'pkg-wash-eco',
-        name: 'Eco Foam Wash & Vacuum',
-        type: 'Basic Exterior & Interior',
+        id: 'pkg-fit-rto',
+        name: 'RTO Fitness Prep & Scan',
+        type: 'Commercial/Private Pre-RTO Check',
         price: 'Inspect & Estimate',
-        rating: '4.8',
-        features: ['High-pressure water rinse', 'Active foam shampoo scrub', 'Complete exterior hand dry', 'Basic interior vacuuming'],
-        warranty: 'Spotless Shine Guarantee',
-        brand: '2 & 4-Wheeler',
-        image: '/carwash/bj1.png'
+        rating: '4.9',
+        features: ['Full electrical & mechanical prep check', 'Headlight alignment & focus test', 'Brake load & efficiency verification', 'Under-chassis & leakage inspection'],
+        warranty: 'Pass-Ready Assurance Report',
+        brand: 'All Vehicles',
+        image: '/rto_inspection.png'
       },
       {
         id: 'pkg-wash-premium',
-        name: 'Premium Foam & Wax',
+        name: 'Premium Foam Wash & Wax',
         type: 'Advanced Paint Protection',
         price: 'Inspect & Estimate',
         rating: '4.9',
@@ -139,26 +139,26 @@ export default function FeaturedProducts({ onInquire }) {
         image: '/carwash/bj2.png'
       },
       {
-        id: 'pkg-wash-interior',
-        name: 'Complete Interior Spa',
-        type: 'Deep Cabin Grooming',
+        id: 'pkg-fit-governor',
+        name: 'Speed Governor Installation',
+        type: 'Certified RTO Speed Limiter',
         price: 'Inspect & Estimate',
-        rating: '4.9',
-        features: ['Deep interior vacuum & dust', 'Dashboard & console dressing', 'Upholstery & mat shampooing', 'AC vent sanitisation'],
-        warranty: '100% Odour-Free Guarantee',
-        brand: '4-Wheeler',
-        image: '/carwash/bj3.png'
+        rating: '4.8',
+        features: ['Government-approved speed limiter fitting', 'Calibration & calibration certificate', 'Speed sensor connectivity check', 'Official RTO portal upload entry'],
+        warranty: '1-Year Product Warranty',
+        brand: 'Commercial Vehicles',
+        image: '/speed_governor.png'
       },
       {
-        id: 'pkg-wash-ultimate',
-        name: 'Ultimate Gold Detailing',
-        type: 'Showroom Polish Treatment',
+        id: 'pkg-fit-wash-combo',
+        name: 'Ultimate Wash & RTO Renewal Pack',
+        type: 'Complete Wash & Fitness Compliance',
         price: 'Inspect & Estimate',
         rating: '5.0',
-        features: ['Premium foam & underbody wash', 'Deep interior cabin cleaning', 'Engine bay detailing & gloss', 'Hand-applied premium wax coat'],
-        warranty: 'Premium Protection Plan',
+        features: ['Premium foam & underbody wash', 'Deep interior cabin vacuuming & dressing', 'Authorized emission scan & certificate', 'Physical vehicle representation & RTO booking'],
+        warranty: 'End-to-End Compliance & Shine',
         brand: 'All Vehicles',
-        image: '/carwash/bj4.png'
+        image: '/rto_docs.png'
       }
     ]
   };
@@ -202,14 +202,14 @@ export default function FeaturedProducts({ onInquire }) {
               Battery Diagnostics
             </button>
             <button
-              onClick={() => setActiveTab('carwashing')}
+              onClick={() => setActiveTab('fitness')}
               className={`px-6 py-2.5 rounded-full text-sm font-semibold font-display transition-all duration-300 ${
-                activeTab === 'carwashing'
+                activeTab === 'fitness'
                   ? 'bg-gold-500 text-white shadow-md shadow-gold-200'
                   : 'text-slate-600 hover:text-gold-600 hover:bg-gold-50/50'
               }`}
             >
-              Car Washing
+              Fitness & Wash Care
             </button>
           </div>
         </div>

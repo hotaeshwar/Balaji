@@ -25,12 +25,13 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="relative bg-white pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden border-b border-slate-100">
+    <section id="home" className="relative bg-white pt-8 pb-16 md:pt-12 md:pb-24 overflow-hidden border-b border-slate-100">
       {/* Decorative background gradients */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-gold-50/50 rounded-full filter blur-3xl -z-10 translate-x-1/3 -translate-y-1/3" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-gold-50/30 rounded-full filter blur-3xl -z-10 -translate-x-1/3 translate-y-1/3" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Text Content Area */}
@@ -48,15 +49,15 @@ export default function Hero() {
 
             {/* Title / Headline */}
             <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-slate-900 leading-tight">
-              2 & 4-Wheeler Care & <br className="hidden sm:inline" />
+              4-Wheeler Care & <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-600 via-gold-500 to-gold-700">
-                EV Scooter Hub
+                2-Wheeler EV Scooter Hub
               </span>
             </h1>
 
             {/* Description */}
             <p className="font-sans text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
-              Keep your ride running at peak performance. <strong className="text-slate-800 font-semibold">Balaji Autoss</strong> is Sector 42 Attawa&apos;s leading automotive hub, offering certified 3D wheel alignment, battery load tests for both 2-wheelers & 4-wheelers, and authorized sales & service for electric scooters.
+              Keep your ride running at peak performance. <strong className="text-slate-800 font-semibold">Balaji Autoss</strong> is Sector 42 Attawa&apos;s leading automotive hub, offering certified wheel alignment, battery load tests for both 2-wheelers & 4-wheelers, and authorized sales & service for electric scooters.
             </p>
 
             {/* Action Buttons */}
@@ -124,7 +125,7 @@ export default function Hero() {
             </div>
             
             {/* Quick stats floating tag */}
-            <div className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 z-10 bg-white border border-gold-200 shadow-xl px-5 py-3 rounded-2xl flex items-center gap-3">
+            <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 lg:-bottom-8 lg:-left-8 z-10 bg-white border border-gold-200 shadow-xl px-5 py-3 rounded-2xl flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gold-50 flex items-center justify-center text-gold-600 font-bold text-lg border border-gold-200">
                 15+
               </div>

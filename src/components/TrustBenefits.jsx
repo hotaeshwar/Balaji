@@ -8,7 +8,7 @@ export default function TrustBenefits() {
 
   const benefits = [
     'Authorized multi-brand diagnostic scanner equipment and service protocols',
-    'State-of-the-art computerised 3D alignment and laser balancing machinery',
+    'State-of-the-art computerised alignment and laser balancing machinery',
     'Official replacement support and service warranty coverage on repairs',
     'Trained technicians specializing in tubeless technology and EV electronics',
     'Comfortable, air-conditioned customer waiting lounge with transparent view'

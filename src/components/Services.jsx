@@ -1,23 +1,23 @@
 'use client';
 
 import Image from 'next/image';
-import { Disc, BatteryCharging, Zap, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Disc, BatteryCharging, Zap, ArrowUpRight, FileText, Sparkles } from 'lucide-react';
 
 export default function Services() {
   const services = [
     {
       id: 'tyres',
       icon: Disc,
-      title: '2 & 4-Wheeler Tyre Clinic',
-      description: 'Optimize your vehicle\'s handling and steering safety. We provide state-of-the-art computerised 3D wheel alignment, laser wheel balancing, and professional tubeless tyre services for all two-wheelers and four-wheelers.',
-      highlights: ['3D Wheel Alignment', 'Precision Wheel Balancing', 'Nitrogen Inflation', 'Tyre Rotation & Care Checks'],
+      title: '2-Wheeler EV Tyre & 4-Wheeler Tyre Clinic',
+      description: 'Optimize your vehicle\'s handling and steering safety. We provide state-of-the-art computerised wheel alignment, laser wheel balancing, and professional tubeless tyre services for 2-wheeler EVs and 4-wheelers.',
+      highlights: ['Wheel Alignment', 'Precision Wheel Balancing', 'Nitrogen Inflation', 'Tyre Rotation & Care Checks'],
       cta: 'View Tyre Packages',
       linkId: 'products'
     },
     {
       id: 'batteries',
       icon: BatteryCharging,
-      title: '2 & 4-Wheeler Battery Clinic',
+      title: 'All 4-Wheeler & 2-Wheeler EV Battery Clinic',
       description: 'Ensure reliable power output. We offer advanced diagnostic load testing, terminal corrosion cleaning, alternator checks, and battery recharging/greasing services for bikes, scooters, and cars.',
       highlights: ['Diagnostic Load Testing', 'Alternator Output Check', 'Battery Recharging & Cleaning', 'Terminal Protection Treatment'],
       cta: 'View Battery Services',
@@ -33,12 +33,12 @@ export default function Services() {
       linkId: 'ev-showcase'
     },
     {
-      id: 'carwash',
+      id: 'fitness',
       icon: Sparkles,
-      title: '2 & 4-Wheeler Car Wash Clinic',
-      description: 'Keep your ride looking showroom-fresh. We provide high-pressure active foam washing, detailed interior vacuum cabin cleaning, dashboard polishing, and complete sanitisation.',
-      highlights: ['Premium Active Foam Wash', 'Detailed Cabin Vacuuming', 'Dashboard & Trim Polish', 'Upholstery Sanitisation'],
-      cta: 'View Wash Packages',
+      title: 'RTO Fitness & Premium Wash Clinic',
+      description: 'Maintain your vehicle\'s regulatory status and aesthetic appeal. We offer pre-RTO fitness scans, emissions testing, and speed governor checks combined with high-pressure active foam washing and cabin detailing.',
+      highlights: ['Pre-RTO Fitness Prep & Scan', 'Premium Active Foam Wash', 'PUC Emission & Safety Tests', 'Interior Vacuum & Dashboard Polish'],
+      cta: 'View Fitness & Wash Packages',
       linkId: 'products'
     }
   ];
@@ -63,17 +63,6 @@ export default function Services() {
   return (
     <section id="services" className="relative py-20 bg-slate-50 border-b border-slate-100 overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Storefront Image Banner */}
-        <div className="mb-16 relative w-full h-[250px] sm:h-[400px] lg:h-[480px] rounded-[2rem] overflow-hidden shadow-lg border border-slate-200 bg-slate-100 reveal delay-100">
-          <Image 
-            src="/balaji.png" 
-            alt="Balaji Autoss Storefront Workshop and Service Center" 
-            fill 
-            className="object-cover transition-transform duration-700 hover:scale-[1.01]"
-            priority
-          />
-        </div>
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 reveal delay-100">
