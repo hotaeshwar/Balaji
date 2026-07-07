@@ -219,22 +219,9 @@ export default function FeaturedProducts({ onInquire }) {
           {packages[activeTab].map((pkg, index) => (
             <div
               key={pkg.id}
-              className="glow-card bg-white rounded-3xl p-6 border border-slate-100 shadow-sm flex flex-col md:flex-row gap-6 reveal delay-200"
+              className="glow-card bg-white rounded-3xl p-8 border border-slate-100 shadow-sm flex flex-col justify-between reveal delay-200"
               style={{ transitionDelay: `${(index + 1) * 100}ms` }}
             >
-              {/* Service Illustration Box with AI Generated Image */}
-              <div className="w-full md:w-2/5 h-48 md:h-auto min-h-[180px] bg-slate-100 rounded-2xl relative overflow-hidden group border border-slate-200/40 shadow-inner shrink-0">
-                <Image 
-                  src={pkg.image} 
-                  alt={pkg.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-w-768px) 100vw, 25vw"
-                />
-                {/* Subtle dark gradient overlay to give gold styling depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent" />
-              </div>
-
               {/* Package Details */}
               <div className="flex flex-col justify-between flex-1 gap-4">
                 <div className="flex flex-col gap-3 text-left">

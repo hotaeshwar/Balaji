@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Disc, BatteryCharging, Zap, ArrowUpRight, Sparkles } from 'lucide-react';
 
 export default function Services() {
@@ -60,9 +61,20 @@ export default function Services() {
   };
 
   return (
-    <section id="services" className="py-20 bg-white border-b border-slate-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="relative py-20 bg-slate-50 border-b border-slate-100 overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {/* Storefront Image Banner */}
+        <div className="mb-16 relative w-full h-[250px] sm:h-[400px] lg:h-[480px] rounded-[2rem] overflow-hidden shadow-lg border border-slate-200 bg-slate-100 reveal delay-100">
+          <Image 
+            src="/balaji.png" 
+            alt="Balaji Autoss Storefront Workshop and Service Center" 
+            fill 
+            className="object-cover transition-transform duration-700 hover:scale-[1.01]"
+            priority
+          />
+        </div>
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 reveal delay-100">
           <span className="text-xs font-bold uppercase tracking-widest text-gold-600 font-sans block mb-2">
@@ -72,7 +84,7 @@ export default function Services() {
             Our Elite Services
           </h2>
           <div className="w-16 h-1 bg-gold-500 mx-auto mt-4 rounded-full" />
-          <p className="font-sans text-sm sm:text-base text-slate-500 mt-4 leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-slate-600 mt-4 leading-relaxed">
             From safety-focused wheel alignment and battery diagnostics to expert EV two-wheeler tuning, we utilize advanced tools and certified expertise to maintain your ride.
           </p>
         </div>
@@ -84,31 +96,31 @@ export default function Services() {
             return (
               <div 
                 key={service.id}
-                className="glow-card bg-white rounded-3xl p-8 flex flex-col justify-between border border-slate-100 shadow-sm reveal delay-200"
+                className="glow-card bg-white rounded-3xl p-8 flex flex-col justify-between border border-emerald-100 shadow-xl transition-all duration-300 reveal delay-200 group/card hover:shadow-emerald-500/10 hover:border-emerald-300"
                 style={{ transitionDelay: `${(index + 1) * 100}ms` }}
               >
                 {/* Upper Card Info */}
                 <div className="flex flex-col gap-5">
                   {/* Icon Wrapper */}
-                  <div className="w-14 h-14 rounded-2xl bg-gold-50 border border-gold-200/50 flex items-center justify-center text-gold-600 transition-colors duration-300">
+                  <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 transition-all duration-300 group-hover/card:bg-emerald-600 group-hover/card:text-white group-hover/card:border-emerald-600">
                     <Icon className={`w-7 h-7 ${service.id === 'tyres' ? 'animate-spin' : ''}`} style={service.id === 'tyres' ? { animationDuration: '10s' } : {}} />
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-display font-bold text-xl sm:text-2xl text-slate-900">
+                  <h3 className="font-display font-bold text-xl sm:text-2xl text-emerald-800 group-hover/card:text-emerald-700 transition-colors duration-300">
                     {service.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-sm text-slate-600 leading-relaxed font-sans">
+                  <p className="text-sm text-emerald-700/80 leading-relaxed font-sans">
                     {service.description}
                   </p>
 
                   {/* Bullets List */}
                   <ul className="flex flex-col gap-2 mt-2">
                     {service.highlights.map((highlight, hIdx) => (
-                      <li key={hIdx} className="flex items-center gap-2.5 text-xs text-slate-700 font-medium font-sans">
-                        <span className="w-1.5 h-1.5 rounded-full bg-gold-500 shrink-0" />
+                      <li key={hIdx} className="flex items-center gap-2.5 text-xs text-emerald-800 font-medium font-sans">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 group-hover/card:scale-125 transition-transform duration-300" />
                         {highlight}
                       </li>
                     ))}
@@ -116,14 +128,14 @@ export default function Services() {
                 </div>
 
                 {/* Card CTA Link */}
-                <div className="pt-8 border-t border-slate-50 mt-6">
+                <div className="pt-8 border-t border-emerald-100 mt-6">
                   <a
                     href={`#${service.linkId}`}
                     onClick={(e) => handleScrollTo(e, service.linkId)}
-                    className="inline-flex items-center gap-1.5 font-display text-sm font-semibold text-slate-900 hover:text-gold-600 transition-colors group"
+                    className="inline-flex items-center gap-1.5 font-display text-sm font-semibold text-emerald-800 group-hover/card:text-emerald-600 transition-colors group"
                   >
                     {service.cta}
-                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-gold-500" />
+                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-emerald-500" />
                   </a>
                 </div>
               </div>

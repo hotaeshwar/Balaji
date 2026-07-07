@@ -109,19 +109,19 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-r from-gold-200 to-amber-200 rounded-[2rem] filter blur-xl opacity-20 scale-95 animate-pulse-glow" />
             
             {/* Image Container with golden border */}
-            <div className="relative w-full h-full border border-gold-300/30 rounded-[2rem] overflow-hidden shadow-2xl bg-slate-100 transition-all duration-500 hover:scale-[1.01] hover:border-gold-400">
+            <div className="relative w-full h-full border border-gold-300/30 rounded-[2rem] overflow-hidden shadow-2xl bg-black transition-all duration-500 hover:scale-[1.01] hover:border-gold-400">
               <Image
-                src="/hero_vehicle_care.png"
+                src="/home.png"
                 alt="Balaji Autoss Premium Showroom & Service Garage with Tyres, Batteries, and EV Scooters"
                 fill
                 priority
-                className="object-cover transition-transform duration-700 hover:scale-105"
+                className="object-contain transition-transform duration-700 hover:scale-105"
                 sizes="(max-w-768px) 100vw, 50vw"
               />
             </div>
             
             {/* Quick stats floating tag */}
-            <div className="absolute -bottom-4 -left-4 sm:bottom-6 sm:left-6 bg-white border border-gold-200 shadow-xl px-5 py-3 rounded-2xl flex items-center gap-3 animate-bounce" style={{ animationDuration: '3s' }}>
+            <div className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 z-10 bg-white border border-gold-200 shadow-xl px-5 py-3 rounded-2xl flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gold-50 flex items-center justify-center text-gold-600 font-bold text-lg border border-gold-200">
                 15+
               </div>
