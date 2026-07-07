@@ -180,7 +180,7 @@ export default function Navbar() {
           </a>
 
           {/* Desktop Navigation Links with Sliding Tab Highlight */}
-          <div className="relative hidden md:flex items-center gap-0.5 lg:gap-1 bg-slate-50/80 border border-slate-100/50 p-1.5 rounded-full shrink-0">
+          <div className="relative hidden lg:flex items-center gap-0.5 lg:gap-1 bg-slate-50/80 border border-slate-100/50 p-1.5 rounded-full shrink-0">
             {/* Sliding Capsule Background */}
             <div 
               className="absolute bg-white shadow-sm border border-gold-200/50 rounded-full transition-all duration-300 ease-out z-0"
@@ -211,7 +211,7 @@ export default function Navbar() {
           </div>
 
           {/* Call to Action Button */}
-          <div className="hidden md:flex items-center gap-3 lg:gap-4 shrink-0">
+          <div className="hidden lg:flex items-center gap-3 lg:gap-4 shrink-0">
             <a 
               href="tel:9646952897" 
               className="flex items-center gap-1.5 text-slate-700 hover:text-gold-600 font-medium text-xs lg:text-sm transition-colors duration-300 whitespace-nowrap shrink-0"
@@ -228,8 +228,8 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-2">
+          {/* Mobile/Tablet Menu Button (Includes iPad mini, Air, and Pro) */}
+          <div className="lg:hidden flex items-center gap-2">
             <a 
               href="tel:9646952897" 
               className="p-2 text-gold-600 hover:bg-gold-50 rounded-full transition-colors duration-300"
@@ -248,9 +248,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Panel */}
+      {/* Mobile/Tablet Menu Panel (Includes iPad mini, Air, and Pro) */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-slate-100 shadow-xl py-4 px-6 animate-slide-down">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-slate-100 shadow-xl py-4 px-6 animate-slide-down">
           <div className="flex flex-col gap-3">
             {navLinks.map((link) => (
               <a

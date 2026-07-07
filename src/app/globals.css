@@ -8,10 +8,13 @@
     background-color: #ffffff;
     color: #1a1d20;
     -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+    max-width: 100%;
   }
 
   body {
     overflow-x: hidden;
+    max-width: 100%;
   }
 
   /* Custom selection */
