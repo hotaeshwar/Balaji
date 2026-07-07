@@ -87,25 +87,31 @@ export default function Navbar() {
     const path = pathname.replace(/^\//, ''); // e.g. "services"
     const section = path === '' || path === 'home' ? 'home' : path;
     setActiveSection(section);
-
-    // Smooth scroll to the target section on initial load or route change
-    const element = document.getElementById(section);
-    if (element) {
-      const timer = setTimeout(() => {
-        const offset = 76;
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = element.getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
-        const offsetPosition = elementPosition - offset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }, 150);
-      return () => clearTimeout(timer);
-    }
   }, [pathname]);
+
+  // Smooth scroll to the target section on initial load only
+  useEffect(() => {
+    const path = window.location.pathname.replace(/^\//, '');
+    const section = path === '' || path === 'home' ? 'home' : path;
+    if (section && section !== 'home') {
+      const element = document.getElementById(section);
+      if (element) {
+        const timer = setTimeout(() => {
+          const offset = 76;
+          const bodyRect = document.body.getBoundingClientRect().top;
+          const elementRect = element.getBoundingClientRect().top;
+          const elementPosition = elementRect - bodyRect;
+          const offsetPosition = elementPosition - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }, 300);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
 
   const navLinks = [
     { id: 'home', label: 'Home' },
@@ -122,6 +128,29 @@ export default function Navbar() {
     
     const targetPath = id === 'home' ? '/home' : `/${id}`;
     router.push(targetPath, { scroll: false });
+
+    // Smooth scroll to section directly upon clicking
+    if (id === 'home') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      return;
+    }
+
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 76;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
