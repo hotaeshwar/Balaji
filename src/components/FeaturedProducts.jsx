@@ -266,12 +266,13 @@ export default function FeaturedProducts({ activeTab, setActiveTab, onInquire })
             >
               {pkg.image ? (
                 <>
-                  <div className="relative w-full md:w-[32%] h-56 md:h-auto bg-slate-50 shrink-0">
+                  <div className="relative w-full md:w-[40%] h-56 md:h-auto bg-slate-50 shrink-0">
                     <Image
                       src={pkg.image}
                       alt={pkg.name}
                       fill
-                      className="object-cover transition-transform duration-500 hover:scale-105"
+                      style={{ objectFit: 'cover' }}
+                      className="transition-transform duration-500 hover:scale-105"
                       sizes="(max-w-768px) 100vw, 25vw"
                     />
                   </div>
