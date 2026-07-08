@@ -6,7 +6,7 @@ import { ArrowRight, Shield, Award, Sparkles } from 'lucide-react';
 export default function Hero() {
   const handleScrollTo = (e, id) => {
     e.preventDefault();
-    const path = id === 'home' ? '/home' : `/${id}`;
+    const path = id === 'home' ? '/' : `/${id}`;
     window.history.pushState(null, '', path);
 
     const element = document.getElementById(id);

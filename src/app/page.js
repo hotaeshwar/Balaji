@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useScrollReveal } from '@/hooks/useIntersectionObserver';
 import { useRouter, usePathname } from 'next/navigation';
+import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import StorefrontHero from '@/components/StorefrontHero';
 import Hero from '@/components/Hero';
@@ -19,11 +20,17 @@ export default function Home() {
   const router = useRouter();
   const pathname = usePathname();
 
+  const [showSplash, setShowSplash] = useState(true);
+
   useEffect(() => {
-    if (pathname === '/') {
-      router.replace('/home');
-    }
-  }, [pathname, router]);
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Active Tab state for FeaturedProducts
+  const [activeTab, setActiveTab] = useState('tyres');
 
   // Activate scroll-reveal animations
   useScrollReveal();
@@ -126,6 +133,43 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white">
+      {/* Splash Screen */}
+      {showSplash && (
+        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-emerald-50/95 backdrop-blur-md">
+          <div className="flex flex-col items-center gap-6 max-w-lg px-6 text-center">
+            {/* Logo (70% Larger, Fixed) */}
+            <div className="relative w-[300px] h-[100px] xs:w-[380px] xs:h-[125px] sm:w-[480px] sm:h-[160px] max-w-full">
+              <Image
+                src="/logo.jpeg"
+                alt="Balaji Autoss Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            
+            {/* Subtitle */}
+            <div className="flex flex-col gap-1 mt-2">
+              <h2 className="font-display font-bold text-xl sm:text-2xl text-emerald-900 tracking-wide">
+                BALAJI AUTOSS
+              </h2>
+              <p className="text-xs uppercase font-bold tracking-widest text-gold-600">
+                Sales & Service Hub
+              </p>
+            </div>
+
+            {/* Circular Buffering Animation Spinner */}
+            <div className="relative w-12 h-12 mt-6">
+              <div className="absolute inset-0 rounded-full border-4 border-emerald-100/50" />
+              <div className="absolute inset-0 rounded-full border-4 border-t-emerald-600 border-r-gold-500 animate-spin" />
+            </div>
+            
+            <span className="text-[10px] font-bold text-emerald-800/60 uppercase tracking-widest animate-pulse mt-2">
+              Loading Excellence...
+            </span>
+          </div>
+        </div>
+      )}
       {/* Navigation */}
       <Navbar />
 
@@ -137,7 +181,7 @@ export default function Home() {
 
       {/* Services Section */}
       <div className="reveal delay-100">
-        <Services />
+        <Services setActiveTab={setActiveTab} />
       </div>
 
       {/* Why Choose Us Section */}
@@ -147,12 +191,12 @@ export default function Home() {
 
       {/* Featured Products Section */}
       <div className="reveal delay-100">
-        <FeaturedProducts onInquire={handleOpenInquiry} />
+        <FeaturedProducts activeTab={activeTab} setActiveTab={setActiveTab} onInquire={handleOpenInquiry} />
       </div>
 
       {/* EV Showcase Section */}
       <div className="reveal delay-100">
-        <EVShowcase onBookTestRide={handleOpenTestRide} />
+        <EVShowcase onBookTestRide={handleOpenTestRide} isModalOpen={isTestRideOpen} />
       </div>
 
       {/* Trust & Benefits Section */}
@@ -291,9 +335,9 @@ export default function Home() {
                   <CheckCircle2 className="w-10 h-10" />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <h3 className="font-display font-bold text-xl text-slate-900">Service Booked!</h3>
+                  <h3 className="font-display font-bold text-xl text-slate-900">Test Ride Requested!</h3>
                   <p className="text-xs text-slate-500 max-w-xs leading-normal">
-                    Excellent choice. Your diagnostic service session for <strong className="text-slate-800 font-semibold">{selectedScooter}</strong> is provisionally booked. Vivek will contact you on your mobile shortly to confirm your check-in slot.
+                    Thank you. Your test ride session is provisionally requested. Rohit or Vivek will contact you on your mobile shortly to confirm your showroom visit slot.
                   </p>
                 </div>
               </div>
@@ -302,15 +346,15 @@ export default function Home() {
                 {/* Header */}
                 <div className="flex items-center gap-2">
                   <Calendar className="w-5 h-5 text-gold-600" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">EV Scooter Diagnostics</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">EV Test Ride & Sales</span>
                 </div>
 
                 <div>
                   <h3 className="font-display font-bold text-xl text-slate-900 leading-tight">
-                    Book Service: {selectedScooter}
+                    Book Test Ride & Consult
                   </h3>
                   <p className="text-[11px] font-semibold text-gold-600 mt-1 uppercase tracking-wider">
-                    ECU & Mechanical Diagnostics
+                    Authorized Smart EV Showroom
                   </p>
                 </div>
 
@@ -386,7 +430,7 @@ export default function Home() {
                       className="accent-gold-500 rounded border-slate-300 mt-0.5 shrink-0"
                     />
                     <label htmlFor="modal-tr-check" className="text-[10px] text-slate-500 leading-normal">
-                      I confirm that I will bring my electric two-wheeler to the G.T. Road workshop on the scheduled date.
+                      I confirm my interest in visiting the Sector 42 Attawa showroom for a test ride and sales consultation.
                     </label>
                   </div>
 
@@ -394,7 +438,7 @@ export default function Home() {
                     type="submit"
                     className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow-md hover:shadow-gold-glow flex items-center justify-center gap-1.5 transition-all text-xs tracking-wider uppercase mt-3 active:scale-95"
                   >
-                    Confirm Service Appointment
+                    Request Test Ride & Consultation
                   </button>
                 </form>
               </div>

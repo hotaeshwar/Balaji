@@ -3,31 +3,33 @@
 import Image from 'next/image';
 import { Disc, BatteryCharging, Zap, ArrowUpRight, FileText, Sparkles } from 'lucide-react';
 
-export default function Services() {
+export default function Services({ setActiveTab }) {
   const services = [
     {
       id: 'tyres',
       icon: Disc,
       title: '2-Wheeler EV Tyre & 4-Wheeler Tyre Clinic',
-      description: 'Optimize your vehicle\'s handling and steering safety. We provide state-of-the-art computerised wheel alignment, laser wheel balancing, and professional tubeless tyre services for 2-wheeler EVs and 4-wheelers.',
-      highlights: ['Wheel Alignment', 'Precision Wheel Balancing', 'Nitrogen Inflation', 'Tyre Rotation & Care Checks'],
+      description: 'Computerised wheel alignment, laser balancing, and professional tubeless tyre services for EV 2-wheelers and 4-wheelers.',
+      highlights: ['Wheel Alignment', 'Precision Wheel Balancing', 'Tyre Rotation & Care Checks', 'Rim & Valve Integrity Checks'],
       cta: 'View Tyre Packages',
-      linkId: 'products'
+      linkId: 'products',
+      tabKey: 'tyres'
     },
     {
       id: 'batteries',
       icon: BatteryCharging,
       title: 'All 4-Wheeler & 2-Wheeler EV Battery Clinic',
-      description: 'Ensure reliable power output. We offer advanced diagnostic load testing, terminal corrosion cleaning, alternator checks, and battery recharging/greasing services for bikes, scooters, and cars.',
+      description: 'Advanced load testing, terminal cleaning, alternator output scanning, and battery recharging for all bikes, scooters, and cars.',
       highlights: ['Diagnostic Load Testing', 'Alternator Output Check', 'Battery Recharging & Cleaning', 'Terminal Protection Treatment'],
       cta: 'View Battery Services',
-      linkId: 'products'
+      linkId: 'products',
+      tabKey: 'batteries'
     },
     {
       id: 'ev-scooters',
       icon: Zap,
       title: 'EV Scooter Sales & Service',
-      description: 'Purchase cutting-edge smart electric scooters with extended warranties, or book your existing electric ride for expert OBD software scans, battery cell balancing, and electrical tuning.',
+      description: 'Authorized smart electric scooter sales, expert OBD diagnostic scans, battery cell balancing, and hub motor tuning.',
       highlights: ['Authorized Scooter Sales', 'OBD Software Scan Diagnostics', 'Lithium Battery Cell Balancing', 'Authorized Spare Parts & Motor Tuning'],
       cta: 'View EV Packages',
       linkId: 'ev-showcase'
@@ -36,15 +38,19 @@ export default function Services() {
       id: 'fitness',
       icon: Sparkles,
       title: 'RTO Fitness & Premium Wash Clinic',
-      description: 'Maintain your vehicle\'s regulatory status and aesthetic appeal. We offer pre-RTO fitness scans, emissions testing, and speed governor checks combined with high-pressure active foam washing and cabin detailing.',
+      description: 'Pre-RTO fitness scans, speed governor setup, PUC emissions testing, and premium active high-pressure foam washing.',
       highlights: ['Pre-RTO Fitness Prep & Scan', 'Premium Active Foam Wash', 'PUC Emission & Safety Tests', 'Interior Vacuum & Dashboard Polish'],
       cta: 'View Fitness & Wash Packages',
-      linkId: 'products'
+      linkId: 'products',
+      tabKey: 'wash'
     }
   ];
 
-  const handleScrollTo = (e, id) => {
+  const handleScrollTo = (e, id, tabKey) => {
     e.preventDefault();
+    if (tabKey && setActiveTab) {
+      setActiveTab(tabKey);
+    }
     const element = document.getElementById(id);
     if (element) {
       const offset = 80;
@@ -120,7 +126,7 @@ export default function Services() {
                 <div className="pt-8 border-t border-emerald-100 mt-6">
                   <a
                     href={`#${service.linkId}`}
-                    onClick={(e) => handleScrollTo(e, service.linkId)}
+                    onClick={(e) => handleScrollTo(e, service.linkId, service.tabKey)}
                     className="inline-flex items-center gap-1.5 font-display text-sm font-semibold text-emerald-800 group-hover/card:text-emerald-600 transition-colors group"
                   >
                     {service.cta}

@@ -6,7 +6,7 @@ import { Mail, Phone, MapPin, Clock, Heart } from 'lucide-react';
 export default function Footer() {
   const handleLinkClick = (e, id) => {
     e.preventDefault();
-    const path = id === 'home' ? '/home' : `/${id}`;
+    const path = id === 'home' ? '/' : `/${id}`;
     window.history.pushState(null, '', path);
     
     if (id === 'home') {
@@ -39,7 +39,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Info */}
           <div className="flex flex-col gap-5">
-            <a href="/home" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group py-1">
+            <a href="/" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group py-1">
               <div className="relative w-[360px] sm:w-[430px] h-24 sm:h-28 transition-transform duration-300">
                 <Image 
                   src="/logo.jpeg" 

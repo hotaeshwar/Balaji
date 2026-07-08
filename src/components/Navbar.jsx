@@ -40,7 +40,7 @@ export default function Navbar() {
           if (scrollPosition >= top && scrollPosition < top + height) {
             if (activeSection !== section) {
               setActiveSection(section);
-              const path = section === 'home' ? '/home' : `/${section}`;
+              const path = section === 'home' ? '/' : `/${section}`;
               window.history.pushState(null, '', path);
             }
             break;
@@ -126,7 +126,7 @@ export default function Navbar() {
     e.preventDefault();
     setIsOpen(false);
     
-    const targetPath = id === 'home' ? '/home' : `/${id}`;
+    const targetPath = id === 'home' ? '/' : `/${id}`;
     router.push(targetPath, { scroll: false });
 
     // Smooth scroll to section directly upon clicking
@@ -162,7 +162,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo Section */}
-          <a href="/home" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group shrink-0">
+          <a href="/" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group shrink-0">
             <div className={`relative transition-all duration-300 group-hover:scale-[1.02] ${
               scrolled 
                 ? 'w-[190px] xs:w-[220px] sm:w-[250px] md:w-[200px] lg:w-[260px] xl:w-[290px] h-10 xs:h-11 sm:h-12 md:h-11 lg:h-14 xl:h-16'
@@ -196,7 +196,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <a
                 key={link.id}
-                href={link.id === 'home' ? '/home' : `/${link.id}`}
+                href={link.id === 'home' ? '/' : `/${link.id}`}
                 data-nav-id={link.id}
                 onClick={(e) => handleLinkClick(e, link.id)}
                 className={`relative px-3 lg:px-4 py-1.5 lg:py-2 font-display text-xs lg:text-sm font-medium rounded-full transition-colors duration-300 z-10 ${
