@@ -172,25 +172,26 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
-        ? 'bg-slate-100/95 backdrop-blur-md shadow-md py-1.5 border-b border-slate-200/70'
-        : 'bg-transparent py-4 border-b border-transparent'
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
+      bg-slate-100/95 backdrop-blur-md shadow-md border-b border-slate-200/70 py-2
+      xl:bg-transparent xl:shadow-none xl:border-transparent xl:py-4
+      ${scrolled
+        ? 'xl:bg-slate-100/95 xl:backdrop-blur-md xl:shadow-md xl:py-1.5 xl:border-slate-200/70'
+        : ''
       }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo Section - transparent Brand PNG logo */}
           <a href="/" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group shrink-0">
             <div className={`relative transition-all duration-300 group-hover:scale-[1.05]
-              ${scrolled
-                ? 'w-[70px] h-[70px] md:w-[80px] md:h-[80px] xl:w-[100px] xl:h-[100px]'
-                : 'w-[90px] h-[90px] md:w-[110px] md:h-[110px] xl:w-[140px] xl:h-[140px]'
-              }`}
+              w-[60px] h-[60px] md:w-[70px] md:h-[70px] xl:w-[140px] xl:h-[140px]
+              ${scrolled ? 'xl:w-[100px] xl:h-[100px]' : ''}`}
             >
               <Image
                 src="/brand.png"
                 alt="Balaji Autoss Brand Logo"
                 fill
-                sizes="(max-w-768px) 90px, (max-w-1280px) 110px, 140px"
+                sizes="(max-w-768px) 60px, (max-w-1280px) 70px, 140px"
                 className="object-contain transition-transform duration-300"
                 priority
               />
@@ -247,7 +248,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <a
                 key={link.id}
-                href={link.id === 'home' ? '/home' : `/${link.id}`}
+                href={link.id === 'home' ? '/' : `/${link.id}`}
                 onClick={(e) => handleLinkClick(e, link.id)}
                 className={`px-4 py-3 rounded-xl text-base font-medium font-display transition-colors ${activeSection === link.id
                     ? 'bg-gold-50 text-gold-700 font-semibold border-l-4 border-gold-500'

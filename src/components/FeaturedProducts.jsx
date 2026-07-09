@@ -222,7 +222,7 @@ export default function FeaturedProducts({ activeTab, setActiveTab, onInquire, i
   };
 
   return (
-    <section id="products" className="py-20 bg-white border-b border-slate-100">
+    <section id="products" className="py-20 bg-white border-b border-slate-100 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header & Pills stacked below typewriter text */}
