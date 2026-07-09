@@ -16,6 +16,12 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (pathname === '/gallery') {
+        setActiveSection('gallery');
+        setScrolled(window.scrollY > 20);
+        return;
+      }
+
       setScrolled(window.scrollY > 20);
 
       // Check if user scrolled to the bottom of the page
@@ -52,7 +58,7 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Trigger initial calculation
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeSection]);
+  }, [activeSection, pathname]);
 
   useEffect(() => {
     const updateCoords = () => {
@@ -119,6 +125,7 @@ export default function Navbar() {
     { id: 'why-choose-us', label: 'Why Us' },
     { id: 'products', label: 'Packages' },
     { id: 'ev-showcase', label: 'EV Care' },
+    { id: 'gallery', label: 'Gallery' },
     { id: 'contact', label: 'Contact' },
   ];
 
@@ -126,7 +133,18 @@ export default function Navbar() {
     e.preventDefault();
     setIsOpen(false);
 
+    if (id === 'gallery') {
+      router.push('/gallery');
+      return;
+    }
+
     const targetPath = id === 'home' ? '/' : `/${id}`;
+
+    if (pathname === '/gallery') {
+      router.push(targetPath);
+      return;
+    }
+
     router.push(targetPath, { scroll: false });
 
     // Smooth scroll to section directly upon clicking

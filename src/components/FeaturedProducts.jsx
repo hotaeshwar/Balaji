@@ -7,6 +7,7 @@ import Typewriter from './Typewriter';
 
 export default function FeaturedProducts({ activeTab, setActiveTab, onInquire, isInquiryOpen }) {
   const [isFading, setIsFading] = useState(false);
+  const [clickedPackageId, setClickedPackageId] = useState(null);
 
   // Handle manual tab selection with fade transition
   const handleTabClick = (tab) => {
@@ -386,11 +387,27 @@ export default function FeaturedProducts({ activeTab, setActiveTab, onInquire, i
                         </div>
 
                         <button
-                          onClick={() => onInquire(pkg)}
-                          className="w-full xl:w-auto inline-flex items-center justify-center gap-2 bg-slate-50 hover:bg-gold-500 text-slate-700 hover:text-white border border-slate-200/60 hover:border-gold-500 font-semibold py-2.5 px-5 rounded-xl text-xs transition-all duration-300 group shadow-sm active:scale-95 whitespace-nowrap"
+                          onClick={() => {
+                            setClickedPackageId(pkg.id);
+                            setTimeout(() => {
+                              onInquire(pkg);
+                            }, 500);
+                            setTimeout(() => {
+                              setClickedPackageId(null);
+                            }, 2000);
+                          }}
+                          className={`w-full xl:w-auto inline-flex items-center justify-center gap-2 bg-slate-50 text-slate-700 border border-slate-200/60 font-semibold py-2.5 px-5 rounded-xl text-xs transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) group overflow-hidden relative
+                            ${clickedPackageId === pkg.id
+                              ? 'shadow-[0_0_25px_rgba(218,165,32,0.85)] scale-95 opacity-0 pointer-events-none'
+                              : 'shadow-sm hover:shadow-gold-glow hover:bg-gold-500 hover:text-white hover:border-gold-500 active:scale-95'
+                            }`}
                         >
-                          <span>Book Now</span>
-                          <MessageSquareCode className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 text-gold-500 group-hover:text-white" />
+                          <span className={`transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${clickedPackageId === pkg.id ? '-translate-x-[60px]' : 'translate-x-0'}`}>
+                            Book Now
+                          </span>
+                          <span className={`transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${clickedPackageId === pkg.id ? 'translate-x-[60px]' : 'translate-x-0'}`}>
+                            <MessageSquareCode className="w-3.5 h-3.5 text-gold-500 group-hover:text-white" />
+                          </span>
                         </button>
                       </div>
                     </div>

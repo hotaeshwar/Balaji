@@ -2,12 +2,28 @@
 
 import Image from 'next/image';
 import { Mail, Phone, MapPin, Clock, Heart } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function Footer() {
+  const pathname = usePathname();
+  const router = useRouter();
+
   const handleLinkClick = (e, id) => {
     e.preventDefault();
-    const path = id === 'home' ? '/' : `/${id}`;
-    window.history.pushState(null, '', path);
+    
+    if (id === 'gallery') {
+      router.push('/gallery');
+      return;
+    }
+
+    const targetPath = id === 'home' ? '/' : `/${id}`;
+    
+    if (pathname === '/gallery') {
+      router.push(targetPath);
+      return;
+    }
+
+    router.push(targetPath, { scroll: false });
     
     if (id === 'home') {
       window.scrollTo({
@@ -85,27 +101,27 @@ export default function Footer() {
             </h3>
             <ul className="flex flex-col gap-3.5 text-sm text-slate-600">
               <li>
-                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
                   Premium Tyre Fitting & Alignment
                 </a>
               </li>
               <li>
-                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
                   Battery Installation & Health Check
                 </a>
               </li>
               <li>
-                <a href="/ev-showcase" onClick={(e) => handleLinkClick(e, 'ev-showcase')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/ev-showcase" onClick={(e) => handleLinkClick(e, 'ev-showcase')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
                   EV Scooter Diagnostics & Repair
                 </a>
               </li>
               <li>
-                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
                   Scheduled Vehicle Maintenance
                 </a>
               </li>
               <li>
-                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
                   Emergency Roadside Assistance
                 </a>
               </li>
@@ -119,32 +135,37 @@ export default function Footer() {
             </h3>
             <ul className="flex flex-col gap-3.5 text-sm text-slate-600">
               <li>
-                <a href="/home" onClick={(e) => handleLinkClick(e, 'home')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/home" onClick={(e) => handleLinkClick(e, 'home')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
                   Home / Welcome
                 </a>
               </li>
               <li>
-                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
                   Services Offered
                 </a>
               </li>
               <li>
-                <a href="/why-choose-us" onClick={(e) => handleLinkClick(e, 'why-choose-us')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/why-choose-us" onClick={(e) => handleLinkClick(e, 'why-choose-us')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
                   Why Choose Us
                 </a>
               </li>
               <li>
-                <a href="/products" onClick={(e) => handleLinkClick(e, 'products')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/products" onClick={(e) => handleLinkClick(e, 'products')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
                   Featured Packages
                 </a>
               </li>
               <li>
-                <a href="/ev-showcase" onClick={(e) => handleLinkClick(e, 'ev-showcase')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/ev-showcase" onClick={(e) => handleLinkClick(e, 'ev-showcase')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
                   EV Scooter Care
                 </a>
               </li>
               <li>
-                <a href="/contact" onClick={(e) => handleLinkClick(e, 'contact')} className="hover:text-gold-600 transition-colors duration-200">
+                <a href="/gallery" onClick={(e) => handleLinkClick(e, 'gallery')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300 font-semibold text-emerald-800">
+                  Video Gallery
+                </a>
+              </li>
+              <li>
+                <a href="/contact" onClick={(e) => handleLinkClick(e, 'contact')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
                   Contact Us
                 </a>
               </li>

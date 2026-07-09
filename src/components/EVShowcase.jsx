@@ -9,6 +9,7 @@ const evImages = ['/ev1.png', '/ev2.png', '/ev4.png'];
 
 export default function EVShowcase({ onBookTestRide, isModalOpen }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     if (isModalOpen) return;
@@ -103,11 +104,27 @@ export default function EVShowcase({ onBookTestRide, isModalOpen }) {
         {onBookTestRide && (
           <div className="text-center mt-12 reveal delay-400">
             <button
-              onClick={() => onBookTestRide('Smart EV Scooter')}
-              className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-white font-semibold px-8 py-4 rounded-full shadow-md hover:shadow-gold-glow-lg transition-all duration-300 text-sm sm:text-base active:scale-95 whitespace-nowrap"
+              onClick={() => {
+                setIsClicked(true);
+                setTimeout(() => {
+                  onBookTestRide('Smart EV Scooter');
+                }, 500);
+                setTimeout(() => {
+                  setIsClicked(false);
+                }, 2000);
+              }}
+              className={`inline-flex items-center gap-2 bg-gold-500 text-white font-semibold px-8 py-4 rounded-full transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) text-sm sm:text-base whitespace-nowrap overflow-hidden relative
+                ${isClicked
+                  ? 'shadow-[0_0_35px_rgba(218,165,32,0.85)] scale-95 opacity-0 pointer-events-none'
+                  : 'shadow-md hover:shadow-gold-glow-lg hover:bg-gold-600 active:scale-95'
+                }`}
             >
-              <Calendar className="w-5 h-5" />
-              Book Test Ride / Consult Sales
+              <span className={`flex items-center gap-2 transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${isClicked ? '-translate-x-[120px]' : 'translate-x-0'}`}>
+                <Calendar className="w-5 h-5" />
+              </span>
+              <span className={`transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1) ${isClicked ? 'translate-x-[120px]' : 'translate-x-0'}`}>
+                Book Test Ride / Consult Sales
+              </span>
             </button>
           </div>
         )}

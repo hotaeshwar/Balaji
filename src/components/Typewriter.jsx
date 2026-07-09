@@ -57,7 +57,7 @@ export default function Typewriter({
   }, [currentText, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, delayBetween, mounted, loop]);
 
   const renderFormattedText = (text) => {
-    const markers = [' &', ', ', ' Customers', ' Balaji', ' Elite', ' EV', ' Care', ' Diagnostics', ' Oils'];
+    const markers = [' &', ', ', ' Customers', ' Balaji', ' Elite', ' EV', ' Care', ' Diagnostics', ' Oils', ' Video', ' Gallery'];
     
     for (const marker of markers) {
       const idx = text.indexOf(marker);
