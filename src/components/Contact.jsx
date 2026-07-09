@@ -188,7 +188,7 @@ export default function Contact() {
                 <div className="flex flex-col text-left">
                   <span className="text-xs text-slate-400 font-medium font-sans">Workshop Address</span>
                   <span className="text-sm font-semibold text-slate-800 font-display">
-                    Balaji Autoss, Plot No. 37, Main Road, Sector 42, Attawa, Chandigarh, 160036
+                    Balaji Autoss, Plot no 37, AttawaMain Road, sector 42 chandigarh, 160036
                   </span>
                 </div>
               </div>
@@ -209,10 +209,10 @@ export default function Contact() {
                 <div className="flex flex-col text-left">
                   <span className="text-xs text-slate-400 font-medium font-sans">Operating Hours</span>
                   <span className="text-sm font-semibold text-slate-800 font-display">
-                    Mon - Sat: 09:30 AM - 06:30 PM
+                    Mon - Sat: 09:00 AM - 06:30 PM
                   </span>
                   <span className="text-xs font-semibold text-gold-600 mt-0.5 font-sans">
-                    Sunday: 09:30 AM - 05:00 PM (Open)
+                    Sunday: 09:00 AM - 05:00 PM (Last Sunday of Month Closed)
                   </span>
                 </div>
               </div>

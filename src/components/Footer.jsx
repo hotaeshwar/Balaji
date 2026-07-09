@@ -202,7 +202,7 @@ export default function Footer() {
                 <MapPin className="w-5 h-5 text-gold-500 mt-0.5 shrink-0" />
                 <div className="flex flex-col">
                   <span className="font-semibold text-slate-900">Address:</span>
-                  <span className="leading-tight">Plot No. 37, Main Road, Sector 42, Attawa, Chandigarh</span>
+                  <span className="leading-tight">Plot no 37, AttawaMain Road, sector 42 chandigarh</span>
                 </div>
               </div>
               {/* Work Hours */}
@@ -210,8 +210,8 @@ export default function Footer() {
                 <Clock className="w-5 h-5 text-gold-500 mt-0.5 shrink-0" />
                 <div>
                   <span className="font-semibold text-slate-900 block">Working Hours:</span>
-                  <span>Mon - Sat: 09:30 AM - 06:30 PM</span>
-                  <span className="block text-gold-600 font-medium">Sunday: 09:30 AM - 05:00 PM</span>
+                  <span>Mon - Sat: 09:00 AM - 06:30 PM</span>
+                  <span className="block text-gold-600 font-medium">Sunday: 09:00 AM - 05:00 PM (Last Sunday of Month Closed)</span>
                 </div>
               </div>
             </div>

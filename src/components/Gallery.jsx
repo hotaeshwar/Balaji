@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import Typewriter from './Typewriter';
 
-// Sub-component for individual video cards to optimize performance (play on viewport intersection only)
+// Sub-component for individual video cards designed for high-performance viewport autoplay
 function GalleryCard({ video, onClick }) {
-  const videoRef = useRef(null);
+  const containerRef = useRef(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {
@@ -18,12 +18,12 @@ function GalleryCard({ video, onClick }) {
       },
       {
         root: null,
-        rootMargin: '120px', // Load and start playing slightly before it scrolls into the viewport
-        threshold: 0.05,
+        rootMargin: '200px', // Preload and start playing 200px before scrolling into view to avoid lag
+        threshold: 0.1,      // Trigger as soon as the card is slightly visible
       }
     );
 
-    const currentRef = videoRef.current;
+    const currentRef = containerRef.current;
     if (currentRef) {
       observer.observe(currentRef);
     }
@@ -35,39 +35,45 @@ function GalleryCard({ video, onClick }) {
     };
   }, []);
 
-  useEffect(() => {
-    if (!videoRef.current) return;
-
-    if (isIntersecting) {
-      videoRef.current.play().catch((err) => {
-        console.warn("Autoplay was blocked or interrupted:", err);
-      });
-    } else {
-      videoRef.current.pause();
-    }
-  }, [isIntersecting]);
-
   return (
     <div
+      ref={containerRef}
       onClick={onClick}
-      className="relative group cursor-pointer aspect-video w-full rounded-3xl overflow-hidden shadow-lg border border-slate-100/50 hover:scale-[1.03] transition-all duration-500 bg-slate-950"
+      className="relative group cursor-pointer aspect-video w-full rounded-3xl overflow-hidden shadow-lg border border-slate-200/20 hover:scale-[1.03] transition-all duration-500 bg-slate-950 flex flex-col justify-between"
     >
-      {/* Rotating glow halo at the backside */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-slate-400 via-gold-400 to-slate-400 opacity-25 filter blur-xl scale-[1.02] animate-rotate-glow -z-10 group-hover:opacity-50 transition-opacity duration-500" />
+      {/* Background Gold-Slate Ambient Glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-gold-500/5 via-transparent to-slate-500/5 opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
       
-      {/* Autoplay Video Element - only preloads metadata to prevent network choke, uses GPU acceleration */}
-      <video
-        ref={videoRef}
-        src={video.src}
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none transform translate-z-0 backface-hidden"
-      />
+      {isIntersecting ? (
+        /* Video element: mounted and played ONLY when near or in viewport, then unmounted to release all decoder memory */
+        <video
+          src={video.src}
+          muted
+          loop
+          playsInline
+          autoPlay
+          preload="auto"
+          className="video-preview absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-95 transition-opacity duration-300 pointer-events-none transform translate-z-0 backface-hidden"
+        />
+      ) : (
+        /* Static placeholder with soft golden spinning loader to prevent blank frames */
+        <div className="absolute inset-0 w-full h-full bg-slate-950/40 flex items-center justify-center">
+          <div className="relative w-8 h-8 opacity-30">
+            <div className="absolute inset-0 rounded-full border border-slate-800" />
+            <div className="absolute inset-0 rounded-full border border-t-gold-500 animate-spin" />
+          </div>
+        </div>
+      )}
+
+      {/* Decorative Corner Decals */}
+      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-gold-500/20 group-hover:border-gold-500/60 rounded-tl-xl transition-colors duration-300" />
+      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-gold-500/20 group-hover:border-gold-500/60 rounded-tr-xl transition-colors duration-300" />
+      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-gold-500/20 group-hover:border-gold-500/60 rounded-bl-xl transition-colors duration-300" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-gold-500/20 group-hover:border-gold-500/60 rounded-br-xl transition-colors duration-300" />
 
       {/* Hover Light overlay */}
-      <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+      <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300" />
     </div>
   );
 }
@@ -75,12 +81,24 @@ function GalleryCard({ video, onClick }) {
 export default function Gallery() {
   const [activeVideoIdx, setActiveVideoIdx] = useState(null);
 
-  // Generate array of 17 videos
-  const videos = Array.from({ length: 17 }, (_, i) => ({
-    id: i + 1,
-    src: `/gallery/galary${i + 1}.mp4`,
-    title: `Balaji Autoss Showroom - Video ${i + 1}`
-  }));
+  // Explicit list of showroom videos
+  const videos = [
+    { id: 1, src: '/gallery/evvideo.mp4', title: 'Balaji Autoss EV Service Showcase' },
+    { id: 2, src: '/gallery/tyre.mp4', title: 'Balaji Autoss Premium Tyre Care' },
+    { id: 3, src: '/gallery/video_003_wash.mp4', title: 'Balaji Autoss Premium Car Wash' },
+    { id: 4, src: '/gallery/wash2.mp4', title: 'Balaji Autoss Foam Wash Care' },
+    { id: 5, src: '/gallery/wash3.mp4', title: 'Balaji Autoss Deep Clean Wash' },
+    { id: 6, src: '/gallery/galary8.mp4', title: 'Balaji Autoss Workshop - Video 6' },
+    { id: 7, src: '/gallery/galary9.mp4', title: 'Balaji Autoss Workshop - Video 7' },
+    { id: 8, src: '/gallery/galary10.mp4', title: 'Balaji Autoss Workshop - Video 8' },
+    { id: 9, src: '/gallery/galary11.mp4', title: 'Balaji Autoss Workshop - Video 9' },
+    { id: 10, src: '/gallery/galary12.mp4', title: 'Balaji Autoss Workshop - Video 10' },
+    { id: 11, src: '/gallery/galary13.mp4', title: 'Balaji Autoss Workshop - Video 11' },
+    { id: 12, src: '/gallery/galary14.mp4', title: 'Balaji Autoss Workshop - Video 12' },
+    { id: 13, src: '/gallery/galary15.mp4', title: 'Balaji Autoss Workshop - Video 13' },
+    { id: 14, src: '/gallery/galary16.mp4', title: 'Balaji Autoss Workshop - Video 14' },
+    { id: 15, src: '/gallery/galary17.mp4', title: 'Balaji Autoss Workshop - Video 15' }
+  ];
 
   const handleVideoClick = (index) => {
     setActiveVideoIdx(index);
@@ -111,6 +129,18 @@ export default function Gallery() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeVideoIdx, videos.length]);
+
+  // Lock body scroll when video modal lightbox is active
+  useEffect(() => {
+    if (activeVideoIdx !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.removeProperty('overflow');
+    }
+    return () => {
+      document.body.style.removeProperty('overflow');
+    };
+  }, [activeVideoIdx]);
 
   return (
     <section className="py-24 bg-white font-sans min-h-screen relative overflow-hidden">
@@ -192,13 +222,14 @@ export default function Gallery() {
               src={videos[activeVideoIdx].src}
               controls
               autoPlay
+              playsInline
               className="max-h-[75vh] max-w-full rounded-xl"
             />
             
             {/* Overlay indicators */}
             <div className="absolute bottom-16 left-6 bg-black/60 px-3 py-1.5 rounded-lg border border-white/10 text-left pointer-events-none hidden sm:block">
               <span className="text-[9px] uppercase font-bold text-gold-400 tracking-wider">
-                Now Playing ({activeVideoIdx + 1}/17)
+                Now Playing ({activeVideoIdx + 1}/{videos.length})
               </span>
               <p className="text-xs text-white font-medium truncate max-w-xs mt-0.5">
                 {videos[activeVideoIdx].title}

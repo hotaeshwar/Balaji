@@ -1,7 +1,8 @@
 'use client';
 
-import { Disc, BatteryCharging, Zap, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Disc, BatteryCharging, Zap, ArrowUpRight, Sparkles, Wrench, Droplets, ClipboardCheck } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Typewriter from './Typewriter';
 
 export default function Services({ setActiveTab }) {
@@ -36,14 +37,34 @@ export default function Services({ setActiveTab }) {
       linkId: 'ev-showcase'
     },
     {
-      id: 'fitness',
-      icon: Sparkles,
-      title: 'RTO Fitness & Premium Wash Clinic',
-      description: 'Pre-RTO fitness scans, PUC emissions testing, and premium active active high-pressure foam washing.',
-      highlights: ['Pre-RTO Fitness Prep & Scan', 'Premium Active Foam Wash', 'PUC Emission & Safety Tests', 'Interior Vacuum & Dashboard Polish'],
-      cta: 'View Fitness & Wash Packages',
+      id: 'car-service',
+      icon: Wrench,
+      title: 'Expert Car Service Clinic',
+      description: 'Professional transmission clutch works, suspension repairs, fuel injector cleaning, scanning diagnostics, dry cleaning & denting.',
+      highlights: ['Car clutch plate change', 'Car suspension work', 'Injector clean (Petrol only)', 'Car scanner Diagnostics', 'Car denting painting rubbing', 'Car dryclean'],
+      cta: 'View Car Services',
+      linkId: 'products',
+      tabKey: 'car-service'
+    },
+    {
+      id: 'wash',
+      icon: Droplets,
+      title: 'Premium Car Wash Clinic',
+      description: 'Underbody high-pressure wash, snow foam cleaning, interior vacuuming, and premium microfiber polish for ultimate gloss and protection.',
+      highlights: ['Premium snow foam wash', 'Underbody high-pressure wash', 'Tyre cleaning & dressing', 'Microfiber spray wax polish'],
+      cta: 'View Car Wash Packages',
       linkId: 'products',
       tabKey: 'wash'
+    },
+    {
+      id: 'fitness',
+      icon: ClipboardCheck,
+      title: 'RTO Fitness Prep Clinic',
+      description: 'Authorized pre-RTO safety prep checks, authorized emission scans, headlamp focusing audits, and pass-ready certification prep.',
+      highlights: ['Full pre-RTO fitness scans', 'Headlight alignment & focus tests', 'Brake load & efficiency audits', 'PUC Emission diagnostics'],
+      cta: 'View Fitness Packages',
+      linkId: 'products',
+      tabKey: 'fitness'
     }
   ];
 
@@ -107,7 +128,7 @@ export default function Services({ setActiveTab }) {
         </div>
 
         {/* Services Grid with Auto-Rotating Highlight Effect */}
-        <div className="flex flex-row overflow-x-auto lg:overflow-visible pb-8 lg:pb-0 gap-6 lg:grid lg:grid-cols-4 lg:gap-8 group/grid scrollbar-none snap-x snap-mandatory px-4 lg:px-0">
+        <div className="flex flex-row overflow-x-auto lg:overflow-visible pb-8 lg:pb-0 gap-6 lg:grid lg:grid-cols-3 lg:gap-8 group/grid scrollbar-none snap-x snap-mandatory px-4 lg:px-0">
           {services.map((service, index) => {
             const Icon = service.icon;
             const isActive = index === currentIndex;
@@ -187,6 +208,61 @@ export default function Services({ setActiveTab }) {
               </div>
             );
           })}
+        </div>
+
+        {/* Brand Showcase Section */}
+        <div className="mt-20 border-t border-slate-200/60 pt-16 reveal delay-300 overflow-hidden w-full">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-widest text-gold-600 font-sans block mb-2">
+              Trusted Brands
+            </span>
+            <h3 className="font-display font-bold text-xl sm:text-2xl text-slate-800 min-h-[1.5em]">
+              <Typewriter 
+                words={['Partner Brands & Batteries We Support']}
+                loop={true}
+                typingSpeed={50}
+                deletingSpeed={30}
+                delayBetween={3000}
+              />
+            </h3>
+            <div className="w-12 h-0.5 bg-gold-400 mx-auto mt-3 rounded-full" />
+          </div>
+
+          {/* Infinite Auto-Scrolling Logo Carousel (No arrows, no dots, automatic & bigger) */}
+          <div className="relative w-full overflow-hidden py-6 mask-gradient bg-white/40 backdrop-blur-sm border-y border-slate-100">
+            <div className="flex gap-16 md:gap-24 items-center w-max animate-infinite-scroll">
+              {[
+                { src: '/appolo.png', alt: 'Apollo Tyres' },
+                { src: '/amaron.png', alt: 'Amaron' },
+                { src: '/powerzone.png', alt: 'Powerzone' },
+                { src: '/exide.png', alt: 'Exide' },
+                { src: '/appolo.png', alt: 'Apollo Tyres' },
+                { src: '/amaron.png', alt: 'Amaron' },
+                { src: '/powerzone.png', alt: 'Powerzone' },
+                { src: '/exide.png', alt: 'Exide' },
+                { src: '/appolo.png', alt: 'Apollo Tyres' },
+                { src: '/amaron.png', alt: 'Amaron' },
+                { src: '/powerzone.png', alt: 'Powerzone' },
+                { src: '/exide.png', alt: 'Exide' },
+                { src: '/appolo.png', alt: 'Apollo Tyres' },
+                { src: '/amaron.png', alt: 'Amaron' },
+                { src: '/powerzone.png', alt: 'Powerzone' },
+                { src: '/exide.png', alt: 'Exide' }
+              ].map((logo, idx) => (
+                <div 
+                  key={idx} 
+                  className="relative w-36 h-16 sm:w-48 sm:h-20 hover:scale-110 transition-transform duration-500 ease-out select-none shrink-0 opacity-90 hover:opacity-100"
+                >
+                  <Image 
+                    src={logo.src} 
+                    alt={logo.alt} 
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
       </div>

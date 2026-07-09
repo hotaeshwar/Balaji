@@ -33,8 +33,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth overflow-x-hidden max-w-full">
-      <body className={`${inter.variable} ${outfit.variable} font-sans bg-white text-charcoal antialiased overflow-x-hidden max-w-full`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${inter.variable} ${outfit.variable} font-sans bg-white text-charcoal antialiased overflow-x-clip max-w-full`}>
         {children}
       </body>
     </html>

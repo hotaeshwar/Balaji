@@ -147,7 +147,9 @@ export default function FeaturedProducts({ activeTab, setActiveTab, onInquire, i
         features: ['Premium snow foam wash', 'Underbody high-pressure wash', 'Tyre cleaning & dressing', 'Microfiber spray wax polish'],
         warranty: 'Long-Lasting Gloss Shield',
         brand: '4-Wheeler'
-      },
+      }
+    ],
+    fitness: [
       {
         id: 'pkg-fit-rto',
         name: 'RTO Fitness Prep & Scan',
@@ -167,6 +169,36 @@ export default function FeaturedProducts({ activeTab, setActiveTab, onInquire, i
         features: ['Premium foam & underbody wash', 'Deep interior cabin vacuuming & dressing', 'Authorized emission scan & certificate', 'Physical vehicle representation & RTO booking'],
         warranty: 'End-to-End Compliance & Shine',
         brand: 'All Vehicles'
+      }
+    ],
+    'car-service': [
+      {
+        id: 'pkg-car-clutch-suspension',
+        name: 'Car Clutch & Suspension Package',
+        type: 'Underbody Transmission & Suspension Work',
+        price: 'Inspect & Estimate',
+        rating: '4.9',
+        features: [
+          'Car clutch plate change',
+          'Car suspension work',
+          'Car denting painting rubbing'
+        ],
+        warranty: 'Premium Parts & Service Warranty',
+        brand: 'Car Service'
+      },
+      {
+        id: 'pkg-car-diagnostics-detailing',
+        name: 'Car Scanner Diagnostics & Detailing',
+        type: 'Electrical OBD Scan & Interior Deep Clean',
+        price: 'Inspect & Estimate',
+        rating: '4.8',
+        features: [
+          'Car scanner Diagnostics',
+          'Injector clean only petrol vehicle',
+          'Car dryclean'
+        ],
+        warranty: 'Full Health & Shine Guarantee',
+        brand: 'Car Service'
       }
     ],
     oils: [
@@ -205,7 +237,9 @@ export default function FeaturedProducts({ activeTab, setActiveTab, onInquire, i
                   activeTab === 'tyres' ? 'Tyre Care Packages' :
                   activeTab === 'mechanical' ? 'Alignment & Balancing' :
                   activeTab === 'batteries' ? 'Battery Diagnostics' :
-                  activeTab === 'wash' ? 'Wash & Fitness Care' :
+                  activeTab === 'car-service' ? 'Car Service' :
+                  activeTab === 'wash' ? 'Car Wash' :
+                  activeTab === 'fitness' ? 'Fitness Care' :
                   activeTab === 'oils' ? 'Automobile Oils' : 'Maintenance & Care'
                 ]}
                 loop={false}
@@ -247,6 +281,16 @@ export default function FeaturedProducts({ activeTab, setActiveTab, onInquire, i
               Battery Diagnostics
             </button>
             <button
+              onClick={() => handleTabClick('car-service')}
+              className={`px-6 py-2.5 rounded-full text-sm font-semibold font-display transition-all duration-300 ${
+                activeTab === 'car-service'
+                  ? 'bg-gold-500 text-white shadow-md shadow-gold-200'
+                  : 'text-neutral-600 hover:text-gold-600 hover:bg-gold-50/50'
+              }`}
+            >
+              Car Service
+            </button>
+            <button
               onClick={() => handleTabClick('wash')}
               className={`px-6 py-2.5 rounded-full text-sm font-semibold font-display transition-all duration-300 ${
                 activeTab === 'wash'
@@ -254,7 +298,17 @@ export default function FeaturedProducts({ activeTab, setActiveTab, onInquire, i
                   : 'text-neutral-600 hover:text-gold-600 hover:bg-gold-50/50'
               }`}
             >
-              Wash & Fitness Care
+              Car Wash
+            </button>
+            <button
+              onClick={() => handleTabClick('fitness')}
+              className={`px-6 py-2.5 rounded-full text-sm font-semibold font-display transition-all duration-300 ${
+                activeTab === 'fitness'
+                  ? 'bg-gold-500 text-white shadow-md shadow-gold-200'
+                  : 'text-neutral-600 hover:text-gold-600 hover:bg-gold-50/50'
+              }`}
+            >
+              Fitness Care
             </button>
             <button
               onClick={() => handleTabClick('oils')}

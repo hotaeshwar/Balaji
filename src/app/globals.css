@@ -8,12 +8,10 @@
     background-color: #ffffff;
     color: #1a1d20;
     -webkit-tap-highlight-color: transparent;
-    overflow-x: hidden;
-    max-width: 100%;
   }
 
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
   }
 
@@ -135,5 +133,29 @@
 
 .animate-rotate-glow {
   animation: rotate-glow 8s linear infinite;
+}
+
+/* Hide iOS Safari play controls overlay on inline preview videos (without native controls) */
+.video-preview::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+.video-preview::-webkit-media-controls {
+  display: none !important;
+}
+
+/* Infinite automatic sliding logo marquee */
+@keyframes infinite-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 25s linear infinite;
+}
+
+.mask-gradient {
+  mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
 }
 
