@@ -24,6 +24,17 @@
   }
 }
 
+@keyframes typewriter-blink {
+  from, to { border-color: transparent }
+  50% { border-color: #d32f2f } /* gold-500 red color */
+}
+
+.typewriter-cursor {
+  border-right: 3px solid #d32f2f;
+  animation: typewriter-blink 0.8s step-end infinite;
+}
+
+
 /* Scroll reveal classes */
 .reveal {
   opacity: 0;
@@ -96,5 +107,33 @@
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+@keyframes float-motion {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.15; transform: scale(0.95) rotate(0deg); }
+  50% { opacity: 0.35; transform: scale(1.05) rotate(1deg); }
+}
+
+.animate-float {
+  animation: float-motion 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 5s ease-in-out infinite;
+}
+
+@keyframes rotate-glow {
+  0% { transform: scale(0.96) rotate(0deg); opacity: 0.25; }
+  50% { transform: scale(1.05) rotate(180deg); opacity: 0.45; }
+  100% { transform: scale(0.96) rotate(360deg); opacity: 0.25; }
+}
+
+.animate-rotate-glow {
+  animation: rotate-glow 8s linear infinite;
 }
 

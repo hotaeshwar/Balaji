@@ -1,7 +1,8 @@
 'use client';
 
-import Image from 'next/image';
-import { Disc, BatteryCharging, Zap, ArrowUpRight, FileText, Sparkles } from 'lucide-react';
+import { Disc, BatteryCharging, Zap, ArrowUpRight, Sparkles } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import Typewriter from './Typewriter';
 
 export default function Services({ setActiveTab }) {
   const services = [
@@ -38,13 +39,28 @@ export default function Services({ setActiveTab }) {
       id: 'fitness',
       icon: Sparkles,
       title: 'RTO Fitness & Premium Wash Clinic',
-      description: 'Pre-RTO fitness scans, speed governor setup, PUC emissions testing, and premium active high-pressure foam washing.',
+      description: 'Pre-RTO fitness scans, PUC emissions testing, and premium active active high-pressure foam washing.',
       highlights: ['Pre-RTO Fitness Prep & Scan', 'Premium Active Foam Wash', 'PUC Emission & Safety Tests', 'Interior Vacuum & Dashboard Polish'],
       cta: 'View Fitness & Wash Packages',
       linkId: 'products',
       tabKey: 'wash'
     }
   ];
+
+  const [activeZoomIndex, setActiveZoomIndex] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  useEffect(() => {
+    if (hoveredIndex !== null) return; // Pause auto-rotation on manual hover
+
+    const interval = setInterval(() => {
+      setActiveZoomIndex((prev) => (prev + 1) % services.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [services.length, hoveredIndex]);
+
+  const currentIndex = hoveredIndex !== null ? hoveredIndex : activeZoomIndex;
 
   const handleScrollTo = (e, id, tabKey) => {
     e.preventDefault();
@@ -75,8 +91,14 @@ export default function Services({ setActiveTab }) {
           <span className="text-xs font-bold uppercase tracking-widest text-gold-600 font-sans block mb-2">
             What We Do
           </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-slate-900 leading-tight">
-            Our Elite Services
+          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-slate-500 leading-tight">
+            <Typewriter 
+              words={['Our Elite Services']}
+              loop={true}
+              typingSpeed={40}
+              deletingSpeed={20}
+              delayBetween={2000}
+            />
           </h2>
           <div className="w-16 h-1 bg-gold-500 mx-auto mt-4 rounded-full" />
           <p className="font-sans text-sm sm:text-base text-slate-600 mt-4 leading-relaxed">
@@ -84,54 +106,83 @@ export default function Services({ setActiveTab }) {
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Services Grid with Auto-Rotating Highlight Effect */}
+        <div className="flex flex-row overflow-x-auto lg:overflow-visible pb-8 lg:pb-0 gap-6 lg:grid lg:grid-cols-4 lg:gap-8 group/grid scrollbar-none snap-x snap-mandatory px-4 lg:px-0">
           {services.map((service, index) => {
             const Icon = service.icon;
+            const isActive = index === currentIndex;
             return (
               <div 
                 key={service.id}
-                className="glow-card bg-white rounded-3xl p-8 flex flex-col justify-between border border-emerald-100 shadow-xl transition-all duration-300 reveal delay-200 group/card hover:shadow-emerald-500/10 hover:border-emerald-300"
-                style={{ transitionDelay: `${(index + 1) * 100}ms` }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className="relative shrink-0 w-[290px] sm:w-[320px] lg:w-auto snap-center"
               >
-                {/* Upper Card Info */}
-                <div className="flex flex-col gap-5">
-                  {/* Icon Wrapper */}
-                  <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 transition-all duration-300 group-hover/card:bg-emerald-600 group-hover/card:text-white group-hover/card:border-emerald-600">
-                    <Icon className={`w-7 h-7 ${service.id === 'tyres' ? 'animate-spin' : ''}`} style={service.id === 'tyres' ? { animationDuration: '10s' } : {}} />
+                {/* Background glow halo */}
+                <div className={`absolute inset-0 bg-gradient-to-r from-slate-400/25 via-gold-400/25 to-slate-400/25 rounded-[2rem] filter blur-xl transition-all duration-500 -z-10
+                  ${isActive ? 'opacity-100 scale-110' : 'opacity-0 scale-95'}`}
+                />
+
+                <div 
+                  className={`glow-card bg-white rounded-3xl p-6 flex flex-col gap-5 border transition-all duration-500 ease-out group/card cursor-pointer h-full relative z-10
+                    ${isActive 
+                      ? 'scale-105 opacity-100 shadow-[0_20px_50px_rgba(71,162,105,0.25)] border-slate-300' 
+                      : 'scale-95 opacity-90 border-slate-100 shadow-md'
+                    }`}
+                >
+                  {/* Top: Icon Wrapper */}
+                  <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center transition-all duration-500 shrink-0
+                    ${isActive 
+                      ? 'bg-gold-500 text-white border-gold-500 shadow-sm shadow-gold-500/20' 
+                      : 'bg-slate-50 border-slate-100 text-slate-500'
+                    }`}
+                  >
+                    <Icon className={`w-6 h-6 ${service.id === 'tyres' ? 'animate-spin' : ''}`} style={service.id === 'tyres' ? { animationDuration: '10s' } : {}} />
                   </div>
 
-                  {/* Title */}
-                  <h3 className="font-display font-bold text-xl sm:text-2xl text-emerald-800 group-hover/card:text-emerald-700 transition-colors duration-300">
-                    {service.title}
-                  </h3>
+                  {/* Bottom: Content details */}
+                  <div className="flex-1 flex flex-col justify-between text-left gap-4">
+                    <div className="flex flex-col gap-3">
+                      {/* Title */}
+                      <h3 className={`font-display font-bold text-lg transition-colors duration-500
+                        ${isActive ? 'text-gold-600' : 'text-slate-700'}`}
+                      >
+                        {service.title}
+                      </h3>
 
-                  {/* Description */}
-                  <p className="text-sm text-emerald-700/80 leading-relaxed font-sans">
-                    {service.description}
-                  </p>
+                      {/* Description */}
+                      <p className="text-xs text-slate-600/90 leading-relaxed font-sans">
+                        {service.description}
+                      </p>
 
-                  {/* Bullets List */}
-                  <ul className="flex flex-col gap-2 mt-2">
-                    {service.highlights.map((highlight, hIdx) => (
-                      <li key={hIdx} className="flex items-center gap-2.5 text-xs text-emerald-800 font-medium font-sans">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 group-hover/card:scale-125 transition-transform duration-300" />
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                      {/* Bullets List */}
+                      <ul className="flex flex-col gap-2 mt-1">
+                        {service.highlights.map((highlight, hIdx) => (
+                          <li key={hIdx} className="flex items-center gap-2 text-[11px] text-slate-600 font-semibold font-sans">
+                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-all duration-500
+                              ${isActive ? 'bg-gold-500 scale-125' : 'bg-slate-300 scale-100'}`}
+                            />
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-                {/* Card CTA Link */}
-                <div className="pt-8 border-t border-emerald-100 mt-6">
-                  <a
-                    href={`#${service.linkId}`}
-                    onClick={(e) => handleScrollTo(e, service.linkId, service.tabKey)}
-                    className="inline-flex items-center gap-1.5 font-display text-sm font-semibold text-emerald-800 group-hover/card:text-emerald-600 transition-colors group"
-                  >
-                    {service.cta}
-                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-emerald-500" />
-                  </a>
+                    {/* Card CTA Link */}
+                    <div className="pt-4 border-t border-slate-100 mt-2">
+                      <a
+                        href={`#${service.linkId}`}
+                        onClick={(e) => handleScrollTo(e, service.linkId, service.tabKey)}
+                        className={`inline-flex items-center gap-1.5 font-display text-xs font-semibold transition-colors duration-500 group
+                          ${isActive ? 'text-gold-600' : 'text-slate-700'}`}
+                      >
+                        {service.cta}
+                        <ArrowUpRight className={`w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5
+                          ${isActive ? 'text-slate-500' : 'text-slate-400'}`}
+                      />
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             );

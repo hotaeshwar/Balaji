@@ -40,10 +40,10 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="flex flex-col gap-5">
             <a href="/" onClick={(e) => handleLinkClick(e, 'home')} className="flex items-center group py-1">
-              <div className="relative w-[360px] sm:w-[430px] h-24 sm:h-28 transition-transform duration-300">
+              <div className="relative w-24 h-24 sm:w-28 sm:h-28 transition-transform duration-300 group-hover:scale-105">
                 <Image 
-                  src="/logo.jpeg" 
-                  alt="Balaji Autoss Logo Banner" 
+                  src="/brand.png" 
+                  alt="Balaji Autoss Brand Logo" 
                   fill
                   className="object-contain"
                 />

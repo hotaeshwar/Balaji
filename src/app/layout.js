@@ -19,9 +19,9 @@ export const metadata = {
   keywords: "Balaji Autoss, Tyres, Batteries, EV Scooters, Electric Scooters, Car Tyres, Bike Tyres, Car Batteries, Battery Replacement, Garage Service, Rohit, Vivek",
   authors: [{ name: "Balaji Autoss" }],
   icons: {
-    icon: "/logo.jpeg",
-    shortcut: "/logo.jpeg",
-    apple: "/logo.jpeg",
+    icon: "/brand.png",
+    shortcut: "/brand.png",
+    apple: "/brand.png",
   },
   openGraph: {
     title: "Balaji Autoss | Premium Tyres, Batteries & EV Scooters",

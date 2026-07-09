@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
+import Typewriter from './Typewriter';
 
 const evImages = ['/ev1.png', '/ev2.png', '/ev4.png'];
 
@@ -34,22 +35,36 @@ export default function EVShowcase({ onBookTestRide, isModalOpen }) {
           <span className="text-xs font-bold uppercase tracking-widest text-gold-600 font-sans block mb-2">
             Eco-Friendly Mobility Hub
           </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-slate-900 leading-tight">
-            Authorized EV Scooter Showroom
+          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-slate-500 leading-tight">
+            <Typewriter 
+              words={['Authorized EV Scooter Showroom']}
+              loop={true}
+              typingSpeed={80}
+              deletingSpeed={40}
+              delayBetween={3000}
+            />
           </h2>
           <div className="w-16 h-1 bg-gold-500 mx-auto mt-4 rounded-full" />
-          <p className="font-sans text-sm sm:text-base text-slate-500 mt-4 leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-slate-600 mt-4 leading-relaxed">
             Step into the green future of urban mobility. We are Chandigarh&apos;s leading showroom for premium, high-performance smart electric scooters. Explore our showroom models below.
           </p>
         </div>
 
-        {/* Showcase Carousel */}
-        <div className="max-w-4xl mx-auto relative w-full h-[280px] sm:h-[400px] lg:h-[500px] reveal reveal-up delay-300 group/carousel">
-          {/* Ambient Background Glow */}
-          <div className="absolute inset-0 bg-gold-200/10 rounded-[2rem] filter blur-xl opacity-30 scale-95" />
+        {/* Showcase Carousel Container */}
+        <div className="max-w-4xl mx-auto relative w-full reveal reveal-up delay-300 group/carousel z-10">
+          {/* Ambient Rotating Background Glow */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-slate-400 via-gold-400 to-slate-400 rounded-[2rem] filter blur-2xl opacity-40 scale-[1.03] animate-rotate-glow -z-10" />
           
           {/* Image Wrapper */}
-          <div className="relative w-full h-full border border-gold-300/30 rounded-[2rem] overflow-hidden shadow-2xl bg-white transition-transform duration-500">
+          <div className="relative w-full border border-slate-200/60 rounded-[2rem] overflow-hidden shadow-2xl bg-white z-10">
+            {/* Invisible spacer image to set the dynamic aspect ratio naturally */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={evImages[currentImageIndex]}
+              alt="Spacer"
+              className="w-full h-auto opacity-0 block pointer-events-none"
+            />
+
             {evImages.map((src, index) => (
               <div
                 key={src}
@@ -57,13 +72,11 @@ export default function EVShowcase({ onBookTestRide, isModalOpen }) {
                   index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
               >
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={src}
                   alt={`EV Scooter Model ${index + 1}`}
-                  fill
-                  className="object-cover object-center p-0"
-                  sizes="(max-w-1024px) 100vw, 80vw"
-                  priority={index === 0}
+                  className="w-full h-full object-contain block rounded-[2rem]"
                 />
               </div>
             ))}

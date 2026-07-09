@@ -137,11 +137,11 @@ export default function Home() {
       {showSplash && (
         <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-emerald-50/95 backdrop-blur-md">
           <div className="flex flex-col items-center gap-6 max-w-lg px-6 text-center">
-            {/* Logo (70% Larger, Fixed) */}
-            <div className="relative w-[300px] h-[100px] xs:w-[380px] xs:h-[125px] sm:w-[480px] sm:h-[160px] max-w-full">
+            {/* Logo (Square, Brand PNG) */}
+            <div className="relative w-40 h-40 sm:w-52 sm:h-52 max-w-full">
               <Image
-                src="/logo.jpeg"
-                alt="Balaji Autoss Logo"
+                src="/brand.png"
+                alt="Balaji Autoss Brand Logo"
                 fill
                 className="object-contain"
                 priority
@@ -185,13 +185,11 @@ export default function Home() {
       </div>
 
       {/* Why Choose Us Section */}
-      <div className="reveal delay-100">
-        <WhyChooseUs />
-      </div>
+      <WhyChooseUs />
 
       {/* Featured Products Section */}
       <div className="reveal delay-100">
-        <FeaturedProducts activeTab={activeTab} setActiveTab={setActiveTab} onInquire={handleOpenInquiry} />
+        <FeaturedProducts activeTab={activeTab} setActiveTab={setActiveTab} onInquire={handleOpenInquiry} isInquiryOpen={isInquiryOpen} />
       </div>
 
       {/* EV Showcase Section */}
