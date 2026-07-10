@@ -138,7 +138,7 @@ export default function Home() {
     <main className="min-h-screen bg-white">
       {/* Splash Screen */}
       {showSplash && (
-        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-emerald-50/95 backdrop-blur-md">
+        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-emerald-50/95 backdrop-blur-md animate-splash-fade">
           <div className="flex flex-col items-center gap-6 max-w-lg px-6 text-center">
             {/* Logo (Square, Brand PNG) */}
             <div className="relative w-40 h-40 sm:w-52 sm:h-52 max-w-full">

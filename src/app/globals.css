@@ -159,3 +159,26 @@
   -webkit-mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
 }
 
+/* Splash Screen Auto-Fade (failsafe if React fails to hydrate) */
+@keyframes fadeOutAndHide {
+  0% {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  80% {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.animate-splash-fade {
+  animation: fadeOutAndHide 2.5s forwards ease-in-out;
+}
+
