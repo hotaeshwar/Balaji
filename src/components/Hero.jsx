@@ -196,7 +196,7 @@ export default function Hero() {
             </div>
             
             {/* Quick stats floating tag */}
-            <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 lg:-bottom-8 lg:-left-8 z-20 bg-white border border-gold-200 shadow-xl px-5 py-3 rounded-2xl flex items-center gap-3">
+            <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 lg:-bottom-8 lg:left-[-2rem] lg:translate-x-0 z-20 bg-white border border-gold-200 shadow-xl px-5 py-3 rounded-2xl flex items-center gap-3 whitespace-nowrap">
               <div className="w-10 h-10 rounded-xl bg-gold-50 flex items-center justify-center text-gold-600 font-bold text-lg border border-gold-200">
                 15+
               </div>
