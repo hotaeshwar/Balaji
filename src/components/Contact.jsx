@@ -10,7 +10,8 @@ export default function Contact() {
     phone: '',
     email: '',
     serviceType: 'Tyres Alignment',
-    message: ''
+    message: '',
+    whatsappConsent: false
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -46,6 +47,7 @@ export default function Contact() {
         Email: formData.email,
         "Service Type": formData.serviceType,
         Message: formData.message,
+        "Consent to WhatsApp/Calls": formData.whatsappConsent ? "Agreed" : "No",
         _subject: "New Service Booking / Inquiry - Balaji Autoss Website"
       })
     })
@@ -60,7 +62,8 @@ export default function Contact() {
           phone: '',
           email: '',
           serviceType: 'Tyres Alignment',
-          message: ''
+          message: '',
+          whatsappConsent: false
         });
 
         // Reset submit animation and success banner after delay
@@ -83,7 +86,8 @@ export default function Contact() {
           phone: '',
           email: '',
           serviceType: 'Tyres Alignment',
-          message: ''
+          message: '',
+          whatsappConsent: false
         });
 
         setTimeout(() => {
@@ -347,6 +351,22 @@ export default function Contact() {
                     onChange={handleChange}
                     className="w-full bg-slate-50 border border-slate-200/60 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:bg-white transition-all text-slate-800 placeholder-slate-400 font-sans resize-none"
                   />
+                </div>
+
+                {/* WhatsApp & Call Consent Checkbox */}
+                <div className="flex items-start gap-2.5 mt-1">
+                  <input
+                    type="checkbox"
+                    id="whatsappConsent"
+                    name="whatsappConsent"
+                    required
+                    checked={formData.whatsappConsent}
+                    onChange={(e) => setFormData(prev => ({ ...prev, whatsappConsent: e.target.checked }))}
+                    className="accent-gold-500 rounded border-slate-300 mt-1 shrink-0 cursor-pointer"
+                  />
+                  <label htmlFor="whatsappConsent" className="text-xs text-slate-500 leading-normal cursor-pointer select-none">
+                    I agree to the <a href="/terms" className="text-gold-600 hover:text-gold-700 underline font-medium">Terms & Conditions</a> and consent to the Balaji Autoss team reaching out to me via WhatsApp, calls, or SMS for service updates and queries. <span className="text-rose-500 font-semibold">*</span>
+                  </label>
                 </div>
 
                 {/* Submit Button with parting-away click animation */}

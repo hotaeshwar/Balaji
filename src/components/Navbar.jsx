@@ -16,8 +16,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (pathname === '/gallery') {
-        setActiveSection('gallery');
+      if (pathname === '/gallery' || pathname === '/terms') {
+        setActiveSection(pathname.replace(/^\//, ''));
         setScrolled(window.scrollY > 20);
         return;
       }
@@ -137,10 +137,14 @@ export default function Navbar() {
       router.push('/gallery');
       return;
     }
+    if (id === 'terms') {
+      router.push('/terms');
+      return;
+    }
 
     const targetPath = id === 'home' ? '/' : `/${id}`;
 
-    if (pathname === '/gallery') {
+    if (pathname === '/gallery' || pathname === '/terms') {
       router.push(targetPath);
       return;
     }

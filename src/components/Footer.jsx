@@ -15,10 +15,14 @@ export default function Footer() {
       router.push('/gallery');
       return;
     }
+    if (id === 'terms') {
+      router.push('/terms');
+      return;
+    }
 
     const targetPath = id === 'home' ? '/' : `/${id}`;
     
-    if (pathname === '/gallery') {
+    if (pathname === '/gallery' || pathname === '/terms') {
       router.push(targetPath);
       return;
     }
@@ -169,6 +173,11 @@ export default function Footer() {
                   Contact Us
                 </a>
               </li>
+              <li>
+                <a href="/terms" onClick={(e) => handleLinkClick(e, 'terms')} className="hover:text-gold-600 transition-colors duration-300 relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-gold-500 after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300">
+                  Terms & Conditions
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -223,10 +232,20 @@ export default function Footer() {
       <div className="bg-slate-900 text-slate-400 py-6 border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center text-xs md:text-sm">
           <p>© {new Date().getFullYear()} Balaji Autoss. All rights reserved.</p>
-          <p className="flex items-center gap-1.5 justify-center">
-            Designed for excellence & premium care
-            <Heart className="w-3.5 h-3.5 text-gold-500 fill-gold-500" />
-          </p>
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+            <a 
+              href="/terms" 
+              onClick={(e) => handleLinkClick(e, 'terms')} 
+              className="hover:text-gold-500 transition-colors duration-300"
+            >
+              Terms & Conditions
+            </a>
+            <span className="hidden md:inline text-slate-700">|</span>
+            <p className="flex items-center gap-1.5 justify-center">
+              Designed for excellence & premium care
+              <Heart className="w-3.5 h-3.5 text-gold-500 fill-gold-500" />
+            </p>
+          </div>
         </div>
       </div>
     </footer>

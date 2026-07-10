@@ -25,7 +25,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 5000);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -39,13 +39,13 @@ export default function Home() {
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [inquirySubmitted, setInquirySubmitted] = useState(false);
-  const [inquiryForm, setInquiryForm] = useState({ name: '', phone: '', message: '' });
+  const [inquiryForm, setInquiryForm] = useState({ name: '', phone: '', message: '', whatsappConsent: false });
 
   // Test Ride Modal State
   const [isTestRideOpen, setIsTestRideOpen] = useState(false);
   const [selectedScooter, setSelectedScooter] = useState('');
   const [testRideSubmitted, setTestRideSubmitted] = useState(false);
-  const [testRideForm, setTestRideForm] = useState({ name: '', phone: '', date: '', time: 'Morning (09:00 AM - 12:00 PM)' });
+  const [testRideForm, setTestRideForm] = useState({ name: '', phone: '', date: '', time: 'Morning (09:00 AM - 12:00 PM)', whatsappConsent: false });
 
   // Handlers
   const handleOpenInquiry = (product) => {
@@ -53,7 +53,8 @@ export default function Home() {
     setInquiryForm({ 
       name: '', 
       phone: '', 
-      message: `I would like to book the service package: "${product.name}" (${product.brand}). Please contact me to confirm my appointment slot.` 
+      message: `I would like to book the service package: "${product.name}" (${product.brand}). Please contact me to confirm my appointment slot.`,
+      whatsappConsent: false
     });
     setInquirySubmitted(false);
     setIsInquiryOpen(true);
@@ -61,7 +62,7 @@ export default function Home() {
 
   const handleOpenTestRide = (scooterName) => {
     setSelectedScooter(scooterName);
-    setTestRideForm({ name: '', phone: '', date: '', time: 'Morning (09:00 AM - 12:00 PM)' });
+    setTestRideForm({ name: '', phone: '', date: '', time: 'Morning (09:00 AM - 12:00 PM)', whatsappConsent: false });
     setTestRideSubmitted(false);
     setIsTestRideOpen(true);
   };
@@ -79,6 +80,7 @@ export default function Home() {
         Phone: inquiryForm.phone,
         Message: inquiryForm.message,
         "Selected Package": selectedProduct?.name,
+        "Consent to WhatsApp/Calls": inquiryForm.whatsappConsent ? "Agreed" : "No",
         _subject: `New Service Package Booking - ${selectedProduct?.name}`
       })
     })
@@ -112,6 +114,7 @@ export default function Home() {
         Date: testRideForm.date,
         "Time Slot": testRideForm.time,
         "EV Scooter / Service Name": selectedScooter,
+        "Consent to WhatsApp/Calls": testRideForm.whatsappConsent ? "Agreed" : "No",
         _subject: `New EV Scooter Booking/Service Request - ${selectedScooter}`
       })
     })
@@ -298,6 +301,21 @@ export default function Home() {
                     />
                   </div>
 
+                  {/* WhatsApp/Call Consent Checkbox */}
+                  <div className="flex items-start gap-2 mt-1">
+                    <input
+                      type="checkbox"
+                      id="modal-inq-consent"
+                      required
+                      checked={inquiryForm.whatsappConsent || false}
+                      onChange={(e) => setInquiryForm({ ...inquiryForm, whatsappConsent: e.target.checked })}
+                      className="accent-gold-500 rounded border-slate-300 mt-0.5 shrink-0 cursor-pointer"
+                    />
+                    <label htmlFor="modal-inq-consent" className="text-[10px] text-slate-500 leading-normal cursor-pointer select-none">
+                      I agree to the <a href="/terms" className="text-gold-600 hover:text-gold-700 underline font-medium">Terms & Conditions</a> and consent to the Balaji Autoss team reaching out via WhatsApp/calls for updates. <span className="text-rose-500">*</span>
+                    </label>
+                  </div>
+
                   <button
                     type="submit"
                     className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl shadow-md hover:shadow-gold-glow flex items-center justify-center gap-1.5 transition-all text-xs tracking-wider uppercase mt-2 active:scale-95"
@@ -420,16 +438,31 @@ export default function Home() {
                   </div>
 
                   {/* Checkbox confirmation */}
-                  <div className="flex items-start gap-2.5 mt-1">
-                    <input
-                      type="checkbox"
-                      id="modal-tr-check"
-                      required
-                      className="accent-gold-500 rounded border-slate-300 mt-0.5 shrink-0"
-                    />
-                    <label htmlFor="modal-tr-check" className="text-[10px] text-slate-500 leading-normal">
-                      I confirm my interest in visiting the Sector 42 Attawa showroom for a test ride and sales consultation.
-                    </label>
+                  <div className="flex flex-col gap-2 mt-1">
+                    <div className="flex items-start gap-2.5">
+                      <input
+                        type="checkbox"
+                        id="modal-tr-check"
+                        required
+                        className="accent-gold-500 rounded border-slate-300 mt-0.5 shrink-0 cursor-pointer"
+                      />
+                      <label htmlFor="modal-tr-check" className="text-[10px] text-slate-500 leading-normal cursor-pointer select-none">
+                        I confirm my interest in visiting the Sector 42 Attawa showroom for a test ride and sales consultation. <span className="text-rose-500">*</span>
+                      </label>
+                    </div>
+                    <div className="flex items-start gap-2.5">
+                      <input
+                        type="checkbox"
+                        id="modal-tr-consent"
+                        required
+                        checked={testRideForm.whatsappConsent || false}
+                        onChange={(e) => setTestRideForm({ ...testRideForm, whatsappConsent: e.target.checked })}
+                        className="accent-gold-500 rounded border-slate-300 mt-0.5 shrink-0 cursor-pointer"
+                      />
+                      <label htmlFor="modal-tr-consent" className="text-[10px] text-slate-500 leading-normal cursor-pointer select-none">
+                        I agree to the <a href="/terms" className="text-gold-600 hover:text-gold-700 underline font-medium">Terms & Conditions</a> and consent to the Balaji Autoss team reaching out via WhatsApp/calls for updates. <span className="text-rose-500">*</span>
+                      </label>
+                    </div>
                   </div>
 
                   <button
