@@ -178,7 +178,7 @@ export default function Navbar() {
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
       bg-slate-100/95 backdrop-blur-md shadow-md border-b border-slate-200/70 py-2
-      xl:bg-transparent xl:shadow-none xl:border-transparent xl:py-4
+      xl:bg-transparent xl:backdrop-blur-none xl:shadow-none xl:border-transparent xl:py-4
       ${scrolled
         ? 'xl:bg-slate-100/95 xl:backdrop-blur-md xl:shadow-md xl:py-1.5 xl:border-slate-200/70'
         : ''
