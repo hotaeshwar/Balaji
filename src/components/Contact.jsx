@@ -192,7 +192,7 @@ export default function Contact() {
                 <div className="flex flex-col text-left">
                   <span className="text-xs text-slate-400 font-medium font-sans">Workshop Address</span>
                   <span className="text-sm font-semibold text-slate-800 font-display">
-                    Balaji Autoss, Plot no 37, AttawaMain Road, sector 42 chandigarh, 160036
+                    Balaji Autoss, Plot no 37, Attawa Main Road, sector 42 chandigarh, 160036
                   </span>
                 </div>
               </div>
